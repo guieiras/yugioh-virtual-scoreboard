@@ -1,3 +1,4 @@
+import React from 'react'
 import { Button, Grid, Header, Segment } from 'semantic-ui-react'
 import { Link } from '@reach/router'
 
