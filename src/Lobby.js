@@ -12,7 +12,7 @@ const Lobby = () => {
     <Header as='h3' style={{ marginTop: '10px' }} content='Modo de apresentação' />
     <QRCode value={hostRoute} />
     <p>Entre usando o QR Code acima ou através da seguinte URL</p>
-    <Link to={hostRoute}>{hostRoute}</Link>
+    <Link to={`/game/${uuid}`}>{hostRoute}</Link>
   </Container>
 }
 
