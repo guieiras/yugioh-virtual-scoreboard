@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router } from '@reach/router';
+import Game from './Game';
 import Home from './Home';
 import Lobby from './Lobby';
 import reportWebVitals from './reportWebVitals';
@@ -11,6 +12,7 @@ ReactDOM.render(
   <Router>
     <Home path="/" />
     <Lobby path="/lobby" />
+    <Game path="game/:gameId" />
   </Router>,
   document.getElementById('root')
 );
