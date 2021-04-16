@@ -43,9 +43,9 @@ const Calculator = ({ onMinus, onPlus, onDivide, onReset }) => {
       <Grid padded stretched>
         <Grid.Column width={7}>
           <Button.Group>
-            <Button onClick={plus(0)} icon='percent' color='orange' />
+            <Button onClick={divideBy2(0)} icon='percent' color='orange' />
             <Button onClick={minus(0)} icon='minus' color='red' />
-            <Button onClick={divideBy2(0)} icon='plus' color='green' />
+            <Button onClick={plus(0)} icon='plus' color='green' />
           </Button.Group>
         </Grid.Column>
         <Grid.Column width={2}/>
