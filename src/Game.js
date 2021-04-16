@@ -45,7 +45,15 @@ const Game = ({ props }) => {
     { name: '', deck: '', lp: 8000 }
   ])
 
-  const [decks, setDecks] = React.useState([{ name: 'ABC', uid: 'abc' }])
+  const [decks, setDecks] = React.useState([])
+
+  React.useEffect(() => {
+    fetch('https://remote-decks.vercel.app/api/decks').then((response) => {
+      response.json().then((remoteDecks) => {
+        setDecks([{ name: '', uid: '', imageUrl: '/cardback.png'}, ...remoteDecks])
+      })
+    })
+  }, [])
 
   return <Container style={{ padding: '10px' }}>
     <Grid>
