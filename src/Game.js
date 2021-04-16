@@ -68,7 +68,7 @@ const Game = ({ gameId }) => {
       })
     })
     channel.current = getChannelByGame(gameId)
-  }, [])
+  }, [gameId])
 
   React.useEffect(() => {
     channel.current && channel.current.publish('update', { players, styles })
