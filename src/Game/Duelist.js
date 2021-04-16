@@ -20,7 +20,9 @@ const Duelist = ({ title, lp, decks, deck, onSetDeck, name, onSetName }) => {
         style={{ marginTop: '10px' }}
         placeholder='Deck'
         fluid
+        search
         selection
+        noResultsMessage='Nenhum deck encontrado'
         options={options}
         onChange={(_, { value }) => { onSetDeck(value) } }
         value={deck}
