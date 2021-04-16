@@ -4,7 +4,7 @@ import QRCode from 'qrcode.react';
 import { Container, Header } from 'semantic-ui-react'
 import { v1 as uuidV1 } from 'uuid'
 
-const Lobby = () => {
+const Show = () => {
   const [uuid] = React.useState(uuidV1())
   const location = useLocation()
   const hostRoute = `${location.origin}/game/${uuid}`
@@ -16,4 +16,4 @@ const Lobby = () => {
   </Container>
 }
 
-export default Lobby;
+export default Show;

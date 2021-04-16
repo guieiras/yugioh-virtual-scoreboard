@@ -10,7 +10,7 @@ const Home = () => (
           Remote Duels
         </Header>
         <Grid textAlign='center' style={{ padding: '15px' }}>
-          <Button as={Link} color='green' to='/lobby'>Novo Jogo</Button>
+          <Button as={Link} color='green' to='/show'>Novo Jogo</Button>
         </Grid>
       </Segment>
     </Grid.Column>

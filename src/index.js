@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router } from '@reach/router';
 import Game from './Game';
 import Home from './Home';
-import Lobby from './Lobby';
+import Show from './Show';
 import reportWebVitals from './reportWebVitals';
 
 import 'semantic-ui-css/semantic.min.css'
@@ -11,7 +11,7 @@ import 'semantic-ui-css/semantic.min.css'
 ReactDOM.render(
   <Router>
     <Home path="/" />
-    <Lobby path="/lobby" />
+    <Show path="/show" />
     <Game path="game/:gameId" />
   </Router>,
   document.getElementById('root')
