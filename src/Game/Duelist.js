@@ -12,7 +12,7 @@ const decks = [
 const Duelist = ({ title, lp }) => {
   return <Card fluid>
     <Card.Content header={title} />
-    <Card.Content description>
+    <Card.Content>
       <Input fluid placeholder='Nome do jogador' icon='user' />
       <Dropdown
         style={{ marginTop: '10px' }}
