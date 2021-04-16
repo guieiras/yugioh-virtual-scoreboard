@@ -1,9 +1,11 @@
 import React from 'react'
-import { Container, Grid } from 'semantic-ui-react'
+import { Button, Container, Grid, Segment } from 'semantic-ui-react'
 import Duelist from './Game/Duelist'
 import Calculator from './Game/Calculator'
+import getChannelByGame from './lib/channel'
 
-const Game = ({ props }) => {
+const Game = ({ gameId }) => {
+  const channel = React.useRef(null)
   const setMinus = (player, amount) => {
     const clone = [...players]
     clone[player].lp = clone[player].lp - amount
@@ -39,6 +41,12 @@ const Game = ({ props }) => {
       setPlayers(clone)
     }
   }
+  const toggleLayout = () => {
+    setStyles({
+      ...styles,
+      layout: styles.layout === 'landscape' ? 'vertical' : 'landscape'
+    })
+  }
 
   const [players, setPlayers] = React.useState([
     { name: '', deck: '', lp: 8000 },
@@ -46,6 +54,9 @@ const Game = ({ props }) => {
   ])
 
   const [decks, setDecks] = React.useState([])
+  const [styles, setStyles] = React.useState({
+    layout: 'landscape'
+  })
 
   React.useEffect(() => {
     fetch('https://remote-decks.vercel.app/api/decks').then((response) => {
@@ -53,7 +64,12 @@ const Game = ({ props }) => {
         setDecks([{ name: '', uid: '', imageUrl: '/cardback.png'}, ...remoteDecks])
       })
     })
+    channel.current = getChannelByGame(gameId)
   }, [])
+
+  React.useEffect(() => {
+    channel.current && channel.current.publish('update', { players, styles })
+  })
 
   return <Container style={{ padding: '10px' }}>
     <Grid>
@@ -88,6 +104,11 @@ const Game = ({ props }) => {
       onDivide={setDivide}
       onReset={resetLP}
     />
+    <Segment textAlign='center' color='grey'>
+      <Button secondary onClick={toggleLayout}>
+        {styles.layout === 'landscape' ? 'Horizontal' : 'Vertical'}
+      </Button>
+    </Segment>
   </Container>
 }
 
