@@ -4,6 +4,8 @@ import Duelist from './Game/Duelist'
 import Calculator from './Game/Calculator'
 import getChannelByGame from './lib/channel'
 
+const DEFAULT_IMAGE_URL = '/cardback.png'
+
 const Game = ({ gameId }) => {
   const channel = React.useRef(null)
   const setMinus = (player, amount) => {
@@ -38,6 +40,7 @@ const Game = ({ gameId }) => {
     return (deck) => {
       const clone = [...players]
       clone[player].deck = deck
+      clone[player].deckUrl = decks.filter((deckObj) => deckObj.uid === deck)[0].imageUrl
       setPlayers(clone)
     }
   }
@@ -49,8 +52,8 @@ const Game = ({ gameId }) => {
   }
 
   const [players, setPlayers] = React.useState([
-    { name: '', deck: '', lp: 8000 },
-    { name: '', deck: '', lp: 8000 }
+    { name: '', deck: '', deckUrl: DEFAULT_IMAGE_URL, lp: 8000 },
+    { name: '', deck: '', deckUrl: DEFAULT_IMAGE_URL, lp: 8000 }
   ])
 
   const [decks, setDecks] = React.useState([])
@@ -59,9 +62,9 @@ const Game = ({ gameId }) => {
   })
 
   React.useEffect(() => {
-    fetch('https://remote-decks.vercel.app/api/decks').then((response) => {
+    fetch(process.env.REACT_APP_DECKS_URL).then((response) => {
       response.json().then((remoteDecks) => {
-        setDecks([{ name: '', uid: '', imageUrl: '/cardback.png'}, ...remoteDecks])
+        setDecks([{ name: '', uid: '', imageUrl: DEFAULT_IMAGE_URL }, ...remoteDecks])
       })
     })
     channel.current = getChannelByGame(gameId)
