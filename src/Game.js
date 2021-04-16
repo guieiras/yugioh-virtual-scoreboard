@@ -45,12 +45,15 @@ const Game = ({ props }) => {
     { name: '', deck: '', lp: 8000 }
   ])
 
+  const [decks, setDecks] = React.useState([{ name: 'ABC', uid: 'abc' }])
+
   return <Container style={{ padding: '10px' }}>
     <Grid>
       <Grid.Row>
         <Grid.Column width={8} textAlign="center">
           <Duelist
             title="Jogador 1"
+            decks={decks}
             name={players[0].name}
             deck={players[0].deck}
             lp={players[0].lp}
@@ -61,6 +64,7 @@ const Game = ({ props }) => {
         <Grid.Column width={8} textAlign="center">
           <Duelist
             title="Jogador 2"
+            decks={decks}
             name={players[1].name}
             deck={players[1].deck}
             lp={players[1].lp}
