@@ -23,7 +23,7 @@ const Calculator = ({ onMinus, onPlus, onDivide, onReset }) => {
   }
   const setNumber = (number) => {
     return () => {
-      if(value === 0) { setValue(number) }
+      if (value === 0) { setValue(number) }
       else { setValue(parseInt(value.toString() + number.toString())) }
     }
   }
@@ -40,74 +40,61 @@ const Calculator = ({ onMinus, onPlus, onDivide, onReset }) => {
       <Header textAlign='center'>{value}</Header>
     </Segment>
     <Segment attached>
-      <Grid padded stretched>
-        <Grid.Column width={7}>
-          <Button.Group>
-            <Button onClick={divideBy2(0)} icon='percent' color='orange' />
-            <Button onClick={minus(0)} icon='minus' color='red' />
-            <Button onClick={plus(0)} icon='plus' color='green' />
-          </Button.Group>
-        </Grid.Column>
-        <Grid.Column width={2}/>
-        <Grid.Column width={7}>
-          <Button.Group>
-            <Button onClick={plus(1)} icon='plus' color='green' />
-            <Button onClick={minus(1)} icon='minus' color='red' />
-            <Button onClick={divideBy2(1)} icon='percent' color='orange' />
-          </Button.Group>
-        </Grid.Column>
-      </Grid>
-      <Grid>
-        <Grid.Column width={2} />
-        <Grid.Column width={4}>
+      <div style={{ margin: '5px -15px 20px', display: 'flex', justifyContent: 'space-around' }}>
+        <Button.Group style={{ padding: 0 }}>
+          <Button onClick={divideBy2(0)} size='tiny' icon='percent' color='orange' />
+          <Button onClick={minus(0)} size='tiny' icon='minus' color='red' />
+          <Button onClick={plus(0)} size='tiny' icon='plus' color='green' />
+        </Button.Group>
+        <Button.Group style={{ padding: 0 }}>
+          <Button onClick={plus(1)} size='tiny' icon='plus' color='green' />
+          <Button onClick={minus(1)} size='tiny' icon='minus' color='red' />
+          <Button onClick={divideBy2(1)} size='tiny' icon='percent' color='orange' />
+        </Button.Group>
+      </div>
+      <Grid columns={3}>
+        <Grid.Column>
           <Button onClick={setNumber(7)} fluid basic color='grey'>7</Button>
         </Grid.Column>
-        <Grid.Column width={4}>
+        <Grid.Column>
           <Button onClick={setNumber(8)} fluid basic color='grey'>8</Button>
         </Grid.Column>
-        <Grid.Column width={4}>
+        <Grid.Column>
           <Button onClick={setNumber(9)} fluid basic color='grey'>9</Button>
         </Grid.Column>
-        <Grid.Column width={2} />
       </Grid>
-      <Grid>
-        <Grid.Column width={2} />
-        <Grid.Column width={4}>
+      <Grid columns={3}>
+        <Grid.Column>
           <Button onClick={setNumber(4)} fluid basic color='grey'>4</Button>
         </Grid.Column>
-        <Grid.Column width={4}>
+        <Grid.Column>
           <Button onClick={setNumber(5)} fluid basic color='grey'>5</Button>
         </Grid.Column>
-        <Grid.Column width={4}>
+        <Grid.Column>
           <Button onClick={setNumber(6)} fluid basic color='grey'>6</Button>
         </Grid.Column>
-        <Grid.Column width={2} />
       </Grid>
-      <Grid>
-        <Grid.Column width={2} />
-        <Grid.Column width={4}>
+      <Grid columns={3}>
+        <Grid.Column>
           <Button onClick={setNumber(1)} fluid basic color='grey'>1</Button>
         </Grid.Column>
-        <Grid.Column width={4}>
+        <Grid.Column>
           <Button onClick={setNumber(2)} fluid basic color='grey'>2</Button>
         </Grid.Column>
-        <Grid.Column width={4}>
+        <Grid.Column>
           <Button onClick={setNumber(3)} fluid basic color='grey'>3</Button>
         </Grid.Column>
-        <Grid.Column width={2} />
       </Grid>
-      <Grid>
-        <Grid.Column width={2} />
-        <Grid.Column width={4}>
+      <Grid columns={3}>
+        <Grid.Column>
           <Button onClick={clearCalc} fluid basic color='grey'>C</Button>
         </Grid.Column>
-        <Grid.Column width={4}>
+        <Grid.Column>
           <Button onClick={setNumber(0)} fluid basic color='grey'>0</Button>
         </Grid.Column>
-        <Grid.Column width={4}>
+        <Grid.Column>
           <Button onClick={resetLPs} fluid basic icon='refresh' color='grey'></Button>
         </Grid.Column>
-        <Grid.Column width={2} />
       </Grid>
     </Segment>
   </>
