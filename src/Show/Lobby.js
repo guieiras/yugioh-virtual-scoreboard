@@ -12,7 +12,7 @@ const Lobby = ({ uuid }) => {
   const header = 'Modo de apresentação'
   const info = 'Entre usando o QR Code acima ou através da seguinte URL'
 
-  return windowSize.height >= window.width ? <Container textAlign="center">
+  return windowSize.height >= windowSize.width ? <Container textAlign="center">
     <Header as='h3' style={{ marginTop: '10px' }} content={header} />
     <QRCode value={hostRoute} />
     <p>{info}</p>
