@@ -24,6 +24,11 @@ const Game = ({ gameId }) => {
     clone[player].lp = Math.ceil(clone[player].lp / amount)
     setPlayers(clone)
   }
+  const setLP = (player, newLp) => {
+    const clone = [...players]
+    clone[player].lp = newLp
+    setPlayers(clone)
+  }
   const resetLP = () => {
     const clone = [...players]
     clone.forEach((player) => { player.lp = 8000 })
@@ -106,6 +111,7 @@ const Game = ({ gameId }) => {
       onPlus={setPlus}
       onDivide={setDivide}
       onReset={resetLP}
+      onSet={setLP}
     />
     <Segment textAlign='center' color='grey'>
       <Button secondary onClick={toggleLayout}>

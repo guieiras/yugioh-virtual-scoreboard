@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Grid, Header, Segment } from 'semantic-ui-react'
 
-const Calculator = ({ onMinus, onPlus, onDivide, onReset }) => {
+const Calculator = ({ onMinus, onPlus, onDivide, onReset, onSet }) => {
   const [value, setValue] = React.useState(0)
   const plus = (player) => {
     return () => {
@@ -18,6 +18,12 @@ const Calculator = ({ onMinus, onPlus, onDivide, onReset }) => {
   const divideBy2 = (player) => {
     return () => {
       onDivide && onDivide(player, 2)
+      clearCalc()
+    }
+  }
+  const setLP = (player) => {
+    return () => {
+      onSet && onSet(player, value)
       clearCalc()
     }
   }
@@ -42,6 +48,7 @@ const Calculator = ({ onMinus, onPlus, onDivide, onReset }) => {
     <Segment attached>
       <div style={{ margin: '5px -15px 20px', display: 'flex', justifyContent: 'space-around' }}>
         <Button.Group style={{ padding: 0 }}>
+          <Button onClick={setLP(0)} size='tiny' icon='share' color='grey' />
           <Button onClick={divideBy2(0)} size='tiny' icon='percent' color='orange' />
           <Button onClick={minus(0)} size='tiny' icon='minus' color='red' />
           <Button onClick={plus(0)} size='tiny' icon='plus' color='green' />
@@ -50,6 +57,7 @@ const Calculator = ({ onMinus, onPlus, onDivide, onReset }) => {
           <Button onClick={plus(1)} size='tiny' icon='plus' color='green' />
           <Button onClick={minus(1)} size='tiny' icon='minus' color='red' />
           <Button onClick={divideBy2(1)} size='tiny' icon='percent' color='orange' />
+          <Button onClick={setLP(1)} size='tiny' icon='share' color='grey' />
         </Button.Group>
       </div>
       <Grid columns={3}>
