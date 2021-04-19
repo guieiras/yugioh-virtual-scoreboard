@@ -4,6 +4,7 @@ Remote controllable Life Points calculator to be used as a widget on your Remote
 
 ![remote](https://user-images.githubusercontent.com/16104013/115179523-e1043a80-a0a9-11eb-91ca-997d424e6c46.png)
 
+You can use a virtual camera provider like OBS or Streamlabs to build your composition with your webcam and the browser view.
 
 ## Getting Started
 
