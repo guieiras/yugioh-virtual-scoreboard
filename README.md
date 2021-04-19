@@ -2,6 +2,9 @@
 
 Remote controllable Life Points calculator to be used as a widget on your Remote Duel video source.
 
+![remote](https://user-images.githubusercontent.com/16104013/115179523-e1043a80-a0a9-11eb-91ca-997d424e6c46.png)
+
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
