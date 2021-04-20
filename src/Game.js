@@ -1,10 +1,15 @@
 import React from 'react'
-import { Button, Container, Grid, Segment } from 'semantic-ui-react'
+import { Button, ButtonGroup, Container, Dropdown, Grid, Header, Icon, Segment } from 'semantic-ui-react'
 import Duelist from './Game/Duelist'
 import Calculator from './Game/Calculator'
 import getChannelByGame from './lib/channel'
 
 const DEFAULT_IMAGE_URL = '/cardback.png'
+const MATCH_OPTIONS = [
+  { key: 0, text: 'Sem Match', value: 0 },
+  { key: 3, text: 'Melhor de 3', value: 3 },
+  { key: 5, text: 'Melhor de 5', value: 5 }
+]
 
 const Game = ({ gameId }) => {
   const channel = React.useRef(null)
@@ -49,6 +54,19 @@ const Game = ({ gameId }) => {
       setPlayers(clone)
     }
   }
+  const setGameResult = (result) => {
+    return () => {
+      const clone = [...match]
+      let done = false
+      clone.forEach((game, idx) => {
+        if (!done && game === -1) {
+          clone[idx] = result
+          done = true
+        }
+      })
+      setMatch(clone)
+    }
+  }
   const toggleLayout = () => {
     setStyles({
       ...styles,
@@ -65,6 +83,7 @@ const Game = ({ gameId }) => {
   const [styles, setStyles] = React.useState({
     layout: 'landscape'
   })
+  const [match, setMatch] = React.useState([])
 
   React.useEffect(() => {
     fetch(process.env.REACT_APP_DECKS_URL).then((response) => {
@@ -76,7 +95,7 @@ const Game = ({ gameId }) => {
   }, [gameId])
 
   React.useEffect(() => {
-    channel.current && channel.current.publish('update', { players, styles })
+    channel.current && channel.current.publish('update', { players, styles, match })
   })
 
   return <Container style={{ padding: '10px' }}>
@@ -114,6 +133,39 @@ const Game = ({ gameId }) => {
       onSet={setLP}
     />
     <Segment textAlign='center' color='grey'>
+      <Header textAlign='center'>Match</Header>
+      <div className='ui center' style={{ margin: '10px' }}>
+        {
+          match.map((game, idx) => <Icon
+            key={idx + 1}
+            name='circle'
+            color={game === -1 ? 'grey' : game === -2 ? 'yellow' : game === 0 ? 'blue' : 'red' }
+            size='large'
+          />)
+        }
+      </div>
+      <Dropdown
+        placeholder='Quantidade de Jogos'
+        selection options={MATCH_OPTIONS}
+        value={match.length}
+        onChange={(_, { value }) => { setMatch(new Array(value).fill(-1)) }} />
+      {
+        match.length > 0 && <>
+          <Header size="small" textAlign='center'>Quem venceu o game atual?</Header>
+          <ButtonGroup>
+            <Button basic color='blue' onClick={setGameResult(0)}>{players[0].name || 'Jogador 1'}</Button>
+            <Button basic color='yellow' onClick={setGameResult(-2)}>Empate</Button>
+            <Button basic color='red' onClick={setGameResult(1)}>{players[1].name || 'Jogador 2'}</Button>
+          </ButtonGroup>
+          <div style={{ marginTop: '10px' }}>
+            <Button onClick={() => setMatch(new Array(match.length).fill(-1))}>Redefinir</Button>
+          </div>
+        </>
+      }
+    </Segment>
+
+    <Segment textAlign='center' color='grey'>
+      <Header textAlign='center'>Layout</Header>
       <Button secondary onClick={toggleLayout}>
         {styles.layout === 'landscape' ? 'Horizontal' : 'Vertical'}
       </Button>
