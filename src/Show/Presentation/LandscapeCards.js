@@ -1,8 +1,9 @@
 
 import React from 'react'
 import { Grid, Header, Icon, Image, Segment } from 'semantic-ui-react'
+import MatchIcon from '../MatchIcon'
 
-const LandscapeCards = ({ players, style }) => {
+const LandscapeCards = ({ match, players, style }) => {
   const [height, setHeight] = React.useState(0)
   const containerRef = React.useRef(null)
 
@@ -21,6 +22,9 @@ const LandscapeCards = ({ players, style }) => {
         <div style={{ width: '100%', textAlign: 'right' }}>
           <Header as='p' size='huge' style={{ margin: 0 }}>{players[0].lp}</Header>
           <Header as='p' size='medium'>{players[0].name}</Header>
+          { match?.length && <div className='ui center'>
+            { match.map((result, idx) => <MatchIcon key={idx + 1} winWith={0} result={result} />) }
+          </div> }
         </div>
         <div style={{ marginLeft: 20, height: '100%'}}>
           <Image src={players[0].deckUrl} style={{ maxHeight: height, width: height }} />
@@ -38,6 +42,9 @@ const LandscapeCards = ({ players, style }) => {
         <div style={{ width: '100%' }}>
           <Header as='p' size='huge' style={{ margin: 0 }}>{players[1].lp}</Header>
           <Header as='p' size='medium'>{players[1].name}</Header>
+          {match?.length && <div className='ui center'>
+            {match.map((result, idx) => <MatchIcon key={idx + 1} winWith={1} result={result} />)}
+          </div>}
         </div>
       </Segment>
       <Grid.Column width={2} />
