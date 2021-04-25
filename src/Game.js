@@ -70,6 +70,10 @@ const Game = ({ gameId }) => {
       }
     }
   }
+  const resetMatch = () => {
+    resetLP()
+    setMatch(new Array(match.length).fill(-1))
+  }
 
   const [players, setPlayers] = React.useState([
     { name: '', deck: '', deckUrl: DEFAULT_IMAGE_URL, lp: 8000 },
@@ -153,7 +157,7 @@ const Game = ({ gameId }) => {
             <Button basic color='red' onClick={setGameResult(1)}>{players[1].name || 'Jogador 2'}</Button>
           </Button.Group>
           <div style={{ marginTop: '10px' }}>
-            <Button onClick={() => setMatch(new Array(match.length).fill(-1))}>Redefinir</Button>
+            <Button onClick={resetMatch}>Redefinir</Button>
           </div>
         </>
       }
