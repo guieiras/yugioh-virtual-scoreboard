@@ -64,7 +64,10 @@ const Game = ({ gameId }) => {
           done = true
         }
       })
-      setMatch(clone)
+      if (done) {
+        resetLP()
+        setMatch(clone)
+      }
     }
   }
 
