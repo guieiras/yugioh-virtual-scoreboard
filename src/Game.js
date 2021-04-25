@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, ButtonGroup, Container, Dropdown, Grid, Header, Icon, Segment } from 'semantic-ui-react'
+import { Button, Container, Dropdown, Grid, Header, Icon, Segment } from 'semantic-ui-react'
 import Duelist from './Game/Duelist'
 import Calculator from './Game/Calculator'
 import getChannelByGame from './lib/channel'
@@ -152,11 +152,11 @@ const Game = ({ gameId }) => {
       {
         match.length > 0 && <>
           <Header size="small" textAlign='center'>Quem venceu o game atual?</Header>
-          <ButtonGroup>
+          <Button.Group>
             <Button basic color='blue' onClick={setGameResult(0)}>{players[0].name || 'Jogador 1'}</Button>
             <Button basic color='yellow' onClick={setGameResult(-2)}>Empate</Button>
             <Button basic color='red' onClick={setGameResult(1)}>{players[1].name || 'Jogador 2'}</Button>
-          </ButtonGroup>
+          </Button.Group>
           <div style={{ marginTop: '10px' }}>
             <Button onClick={() => setMatch(new Array(match.length).fill(-1))}>Redefinir</Button>
           </div>
