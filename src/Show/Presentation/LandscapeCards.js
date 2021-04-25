@@ -8,9 +8,8 @@ const LandscapeCards = ({ match, players, style }) => {
   const containerRef = React.useRef(null)
 
   React.useEffect(() => {
-    if (containerRef.current?.clientHeight) {
-      setTimeout(() => { setHeight(containerRef.current.clientHeight) }, 1000)
-    }
+    const clientHeight = containerRef?.current?.clientHeight
+    if (clientHeight) { setTimeout(() => { setHeight(clientHeight) }, 1000) }
   })
 
   return <Grid stackable style={{ margin: 0, height: '100vh', backgroundColor: style.background }}>
@@ -22,9 +21,9 @@ const LandscapeCards = ({ match, players, style }) => {
         <div style={{ width: '100%', textAlign: 'right' }}>
           <Header as='p' size='huge' style={{ margin: 0 }}>{players[0].lp}</Header>
           <Header as='p' size='medium'>{players[0].name}</Header>
-          { match?.length && <div className='ui center'>
+          { match?.length ? <div className='ui center'>
             { match.map((result, idx) => <MatchIcon key={idx + 1} winWith={0} result={result} />) }
-          </div> }
+          </div> : undefined}
         </div>
         <div style={{ marginLeft: 20, height: '100%'}}>
           <Image src={players[0].deckUrl} style={{ maxHeight: height, width: height }} />

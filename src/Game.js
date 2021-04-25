@@ -67,12 +67,6 @@ const Game = ({ gameId }) => {
       setMatch(clone)
     }
   }
-  const toggleLayout = () => {
-    setStyles({
-      ...styles,
-      layout: styles.layout === 'landscape' ? 'vertical' : 'landscape'
-    })
-  }
 
   const [players, setPlayers] = React.useState([
     { name: '', deck: '', deckUrl: DEFAULT_IMAGE_URL, lp: 8000 },
@@ -80,9 +74,7 @@ const Game = ({ gameId }) => {
   ])
 
   const [decks, setDecks] = React.useState([])
-  const [styles, setStyles] = React.useState({
-    layout: 'landscape'
-  })
+  const [styles] = React.useState({})
   const [match, setMatch] = React.useState([])
 
   React.useEffect(() => {
@@ -162,13 +154,6 @@ const Game = ({ gameId }) => {
           </div>
         </>
       }
-    </Segment>
-
-    <Segment textAlign='center' color='grey'>
-      <Header textAlign='center'>Layout</Header>
-      <Button secondary onClick={toggleLayout}>
-        {styles.layout === 'landscape' ? 'Horizontal' : 'Vertical'}
-      </Button>
     </Segment>
   </Container>
 }
