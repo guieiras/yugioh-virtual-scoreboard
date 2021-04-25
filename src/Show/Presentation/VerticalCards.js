@@ -10,9 +10,9 @@ const VerticalCards = ({ match, players, style }) => {
         <Segment inverted>
           <Header as='p' size='huge' textAlign='center'>{players[0].name}</Header>
           <Header as='p' size='large' textAlign='center'>{players[0].lp}</Header>
-          { match?.length && <Container textAlign='center'>
+          { match?.length > 0 ? <Container textAlign='center'>
             { match.map((result, idx) => <MatchIcon key={idx + 1} winWith={0} result={result} />) }
-          </Container> }
+          </Container> : undefined}
         </Segment>
       </Grid.Column>
       <Grid.Column>
@@ -20,9 +20,9 @@ const VerticalCards = ({ match, players, style }) => {
         <Segment inverted>
           <Header as='p' size='huge' textAlign='center'>{players[1].name}</Header>
           <Header as='p' size='large' textAlign='center'>{players[1].lp}</Header>
-          {match?.length && <Container textAlign='center'>
+          {match?.length > 0 ? <Container textAlign='center'>
             {match.map((result, idx) => <MatchIcon key={idx + 1} winWith={1} result={result} />)}
-          </Container>}
+          </Container> : undefined}
         </Segment>
       </Grid.Column>
     </Grid.Row>

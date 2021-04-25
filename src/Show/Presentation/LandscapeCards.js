@@ -42,9 +42,9 @@ const LandscapeCards = ({ match, players, style }) => {
         <div style={{ width: '100%' }}>
           <Header as='p' size='huge' style={{ margin: 0 }}>{players[1].lp}</Header>
           <Header as='p' size='medium'>{players[1].name}</Header>
-          {match?.length && <div className='ui center'>
+          {match?.length ? <div className='ui center'>
             {match.map((result, idx) => <MatchIcon key={idx + 1} winWith={1} result={result} />)}
-          </div>}
+          </div> : undefined}
         </div>
       </Segment>
       <Grid.Column width={2} />
