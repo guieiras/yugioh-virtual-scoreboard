@@ -1,5 +1,6 @@
 import React from 'react'
 import LandscapeCards from './Presentation/LandscapeCards'
+import ScreenCards from './Presentation/ScreenCards'
 import VerticalCards from './Presentation/VerticalCards'
 import useWindowSize from '../lib/useWindowSize'
 
@@ -10,7 +11,8 @@ const defaultStyles = {
 const autoLayout = ({ height, width }) => {
   if (typeof height === 'undefined' || typeof width === 'undefined') { return '' }
   if (height > width) { return 'vertical' }
-  return 'landscape'
+  if (height * 2.5 < width) { return 'landscape' }
+  return 'screen'
 }
 
 const Presentation = ({ state: { players, styles: styleState, match } }) => {
@@ -18,8 +20,9 @@ const Presentation = ({ state: { players, styles: styleState, match } }) => {
   const windowSize = useWindowSize()
 
   switch (autoLayout(windowSize)) {
-    case 'vertical': return <VerticalCards match={match} style={style} players={players} />
     case 'landscape': return <LandscapeCards match={match} style={style} players={players} />
+    case 'screen': return <ScreenCards match={match} style={style} players={players} />
+    case 'vertical': return <VerticalCards match={match} style={style} players={players} />
     default: return <p>Esse Layout não é compatível</p>
   }
 }
