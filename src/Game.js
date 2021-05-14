@@ -1,8 +1,8 @@
 import React from 'react'
-import { Button, Container, Dropdown, Grid, Header, Icon, Segment } from 'semantic-ui-react'
+import { Button, Container, Dropdown, Grid, Header, Icon, Input, Segment } from 'semantic-ui-react'
 import Duelist from './Game/Duelist'
 import Calculator from './Game/Calculator'
-import { getChannelByGame } from './lib/channel'
+import { getChannelByGame, getChannelByMirror } from './lib/channel'
 
 const DEFAULT_IMAGE_URL = '/cardback.png'
 const MATCH_OPTIONS = [
@@ -13,6 +13,7 @@ const MATCH_OPTIONS = [
 
 const Game = ({ gameId }) => {
   const channel = React.useRef(null)
+  const [remoteControl, setRemoteControl] = React.useState('')
   const setMinus = (player, amount) => {
     const clone = [...players]
     clone[player].lp = clone[player].lp - amount
@@ -73,6 +74,9 @@ const Game = ({ gameId }) => {
   const resetMatch = () => {
     resetLP()
     setMatch(new Array(match.length).fill(-1))
+  }
+  const syncDevice = () => {
+    getChannelByMirror(remoteControl).publish('update', { id: gameId, state: { players, styles, match } })
   }
 
   const [players, setPlayers] = React.useState([
@@ -161,6 +165,17 @@ const Game = ({ gameId }) => {
           </div>
         </>
       }
+    </Segment>
+
+    <Segment textAlign='center' color='grey'>
+      <Header textAlign='center'>Sincronizar tela</Header>
+      <p>Digite o código da tela que deseja sincronizar</p>
+      <Input
+
+        onChange={(e) => { setRemoteControl(e.target.value.toUpperCase()) } }
+        value={remoteControl}
+        action={<Button onClick={syncDevice} children='Sincronizar' />}
+      />
     </Segment>
   </Container>
 }

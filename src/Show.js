@@ -35,14 +35,14 @@ const Show = () => {
     getChannelByMirror(newCode).subscribe(({ data }) => { setMirror(data) })
   }
 
-  function setMirror(gameId) {
-    getChannelByGame(gameId).unsubscribe()
+  function setMirror({ id, state }) {
+    getChannelByGame(uuid).unsubscribe()
     getChannelByMirror(mirrorCode).unsubscribe()
 
     setMirrorCode(null)
 
-    setGameState({ players: [] })
-    subscribeToUuid(gameId)
+    setGameState(state)
+    subscribeToUuid(id)
   }
 
   function subscribeToUuid(gameId) {
