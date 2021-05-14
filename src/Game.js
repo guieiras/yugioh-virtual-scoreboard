@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Container, Dropdown, Grid, Header, Icon, Segment } from 'semantic-ui-react'
 import Duelist from './Game/Duelist'
 import Calculator from './Game/Calculator'
-import getChannelByGame from './lib/channel'
+import { getChannelByGame } from './lib/channel'
 
 const DEFAULT_IMAGE_URL = '/cardback.png'
 const MATCH_OPTIONS = [

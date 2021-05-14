@@ -1,7 +1,7 @@
 import React from 'react'
 import { v1 as uuidV1 } from 'uuid'
 
-import getChannelByGame from './lib/channel'
+import { getChannelByGame, getChannelByMirror } from './lib/channel'
 import Presentation from './Show/Presentation'
 import Lobby from './Show/Lobby'
 
