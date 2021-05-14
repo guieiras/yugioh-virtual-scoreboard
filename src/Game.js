@@ -76,6 +76,7 @@ const Game = ({ gameId }) => {
     setMatch(new Array(match.length).fill(-1))
   }
   const syncDevice = () => {
+    setRemoteControl('')
     getChannelByMirror(remoteControl).publish('update', { id: gameId, state: { players, styles, match } })
   }
 
