@@ -29,16 +29,15 @@ const Show = () => {
   })
 
   function subscribeToMirror() {
-    if (mirrorCode) { getChannelByMirror(mirrorCode).unsubscribe() }
+    if (mirrorCode) { unsubscribeClient(getChannelByMirror, mirrorCode) }
     const newCode = getSyncCode(6)
     setMirrorCode(newCode)
-    getChannelByMirror(newCode).subscribe(({ data }) => { setMirror(data) })
+    getChannelByMirror(newCode).subscribe(({ data }) => setMirror(data))
   }
 
   function setMirror({ id, state }) {
-    getChannelByGame(uuid).unsubscribe()
-    getChannelByMirror(mirrorCode).unsubscribe()
-
+    unsubscribeClient(getChannelByGame, uuid)
+    unsubscribeClient(getChannelByMirror, mirrorCode)
     setMirrorCode(null)
 
     setGameState(state)
@@ -48,6 +47,11 @@ const Show = () => {
   function subscribeToUuid(gameId) {
     setUuid(gameId)
     getChannelByGame(gameId).subscribe(({ data }) => { setGameState(data) })
+  }
+
+  function unsubscribeClient(channelGetter, id) {
+    channelGetter(id).unsubscribe()
+    channelGetter(id).detach()
   }
 
   return gameState.players ? <Presentation state={gameState} /> : <Lobby uuid={uuid} mirror={{ timer: MIRROR_TIMER - mirrorTimer % MIRROR_TIMER, code: mirrorCode }} />

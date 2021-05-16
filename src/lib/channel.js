@@ -1,11 +1,11 @@
 import { Realtime } from 'ably'
 
+window.Ably = new Realtime(process.env.REACT_APP_ABLY_API_KEY)
+
 export function getChannelByGame(gameId) {
-  return new Realtime(process.env.REACT_APP_ABLY_API_KEY)
-    .channels.get(`games/${gameId}`)
+  return window.Ably.channels.get(`games/${gameId}`)
 }
 
 export function getChannelByMirror(code) {
-  return new Realtime(process.env.REACT_APP_ABLY_API_KEY)
-    .channels.get(`mirror/${code}`)
+  return window.Ably.channels.get(`mirror/${code}`)
 }
