@@ -1,8 +1,9 @@
 import React from 'react'
 import { Grid, Icon } from 'semantic-ui-react'
+import Timer from './Cards/Timer'
 import PlayerCard from './Screen/PlayerCard'
 
-const ScreenCards = ({ match, players, style }) => {
+const ScreenCards = ({ match, players, style, timer }) => {
   return <Grid stackable style={{ margin: 0, height: '100vh', backgroundColor: style.background }}>
     <Grid.Column width={7} verticalAlign='middle'>
       <PlayerCard
@@ -13,7 +14,9 @@ const ScreenCards = ({ match, players, style }) => {
         winWith={0} />
     </Grid.Column>
     <Grid.Column width={2} textAlign='center' verticalAlign='middle'>
-      <Icon inverted color='grey' name='times' size='huge' />
+      {Boolean(timer.option) ?
+        <Timer total={timer.option} startedAt={timer.startedAt} endsAt={timer.endsAt} size='massive' /> :
+        <Icon inverted color='grey' name='times' size='small' />}
     </Grid.Column>
     <Grid.Column width={7} verticalAlign='middle'>
       <PlayerCard

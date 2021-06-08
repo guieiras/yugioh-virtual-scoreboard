@@ -2,8 +2,9 @@
 import React from 'react'
 import { Grid, Header, Icon, Image, Segment } from 'semantic-ui-react'
 import MatchIcon from '../MatchIcon'
+import Timer from './Cards/Timer'
 
-const LandscapeCards = ({ match, players, style }) => {
+const LandscapeCards = ({ match, players, style, timer }) => {
   const [height, setHeight] = React.useState(0)
   const containerRef = React.useRef(null)
 
@@ -31,7 +32,9 @@ const LandscapeCards = ({ match, players, style }) => {
       </Segment>
     </Grid.Column>
     <Grid.Column width={2} textAlign='center' verticalAlign='middle'>
-      <Icon inverted color='grey' name='times' size='huge' />
+      { Boolean(timer.option) ?
+        <Timer total={timer.option} startedAt={timer.startedAt} endsAt={timer.endsAt} size='massive' />:
+        <Icon inverted color='grey' name='times' size='huge' /> }
     </Grid.Column>
     <Grid.Column width={5} style={{ height: '100%' }}>
       <Segment style={{ height: '100%', display: 'flex' }}>
