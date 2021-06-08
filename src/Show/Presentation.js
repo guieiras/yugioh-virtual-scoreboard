@@ -15,14 +15,14 @@ const autoLayout = ({ height, width }) => {
   return 'screen'
 }
 
-const Presentation = ({ state: { players, styles: styleState, match } }) => {
+const Presentation = ({ state: { players, styles: styleState, match, timer } }) => {
   const style = { ...defaultStyles, ...(styleState || {}) }
   const windowSize = useWindowSize()
 
   switch (autoLayout(windowSize)) {
-    case 'landscape': return <LandscapeCards match={match} style={style} players={players} />
-    case 'screen': return <ScreenCards match={match} style={style} players={players} />
-    case 'vertical': return <VerticalCards match={match} style={style} players={players} />
+    case 'landscape': return <LandscapeCards match={match} style={style} players={players} timer={timer} />
+    case 'screen': return <ScreenCards match={match} style={style} players={players} timer={timer} />
+    case 'vertical': return <VerticalCards match={match} style={style} players={players} timer={timer} />
     default: return <p>Esse Layout não é compatível</p>
   }
 }
