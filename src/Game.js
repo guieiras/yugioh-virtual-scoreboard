@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Container, Dropdown, Grid, Header, Icon, Input, Segment } from 'semantic-ui-react'
+import { Button, Container, Dropdown, Grid, Header, Icon, Input, Label, Segment } from 'semantic-ui-react'
 import Duelist from './Game/Duelist'
 import Calculator from './Game/Calculator'
 import { getChannelByGame, getChannelByMirror } from './lib/channel'
@@ -10,9 +10,21 @@ const MATCH_OPTIONS = [
   { key: 3, text: 'Melhor de 3', value: 3 },
   { key: 5, text: 'Melhor de 5', value: 5 }
 ]
+const MATCH_TIME_OPTIONS = [
+  { key: 0, text: 'Nenhum', value: 0 },
+  { key: -1, text: 'Progressivo', value: -1 },
+  { key: 30, text: '30 minutos', value: 30 },
+  { key: 40, text: '40 minutos', value: 40 },
+  { key: 50, text: '50 minutos', value: 50 },
+  { key: 60, text: '1 hora', value: 60 }
+]
 
 const Game = ({ gameId }) => {
   const channel = React.useRef(null)
+  const sendData = (overrides = {}) => {
+    channel.current && channel.current.publish('update', { players, styles, match, timer, ...overrides })
+  }
+
   const [remoteControl, setRemoteControl] = React.useState('')
   const setMinus = (player, amount) => {
     const clone = [...players]
@@ -79,6 +91,18 @@ const Game = ({ gameId }) => {
     setRemoteControl('')
     getChannelByMirror(remoteControl).publish('update', { id: gameId, state: { players, styles, match } })
   }
+  const stopTimer = () => {
+    setTimer({ option: timer.option, running: false })
+  }
+  const startTimer = () => {
+    const timeOption =
+      timer.option === -1 ? { startedAt: new Date().getTime() } :
+                            { endsAt: new Date().getTime() + (timer.option * 60 * 1000) }
+    const newTimer = { option: timer.option, ...timeOption, running: true }
+
+    setTimer(newTimer)
+    sendData({ timer: newTimer })
+  }
 
   const [players, setPlayers] = React.useState([
     { name: '', deck: '', deckUrl: DEFAULT_IMAGE_URL, lp: 8000 },
@@ -88,6 +112,9 @@ const Game = ({ gameId }) => {
   const [decks, setDecks] = React.useState([])
   const [styles] = React.useState({})
   const [match, setMatch] = React.useState([])
+  const [timer, setTimer] = React.useState({ option: 0, running: false })
+  const [clock, setClock] = React.useState(0)
+  const timeoutRef = React.useRef(null)
 
   React.useEffect(() => {
     fetch(process.env.REACT_APP_DECKS_URL).then((response) => {
@@ -98,9 +125,17 @@ const Game = ({ gameId }) => {
     channel.current = getChannelByGame(gameId)
   }, [gameId])
 
+  React.useEffect(sendData, [players, styles, match]) // eslint-disable-line
   React.useEffect(() => {
-    channel.current && channel.current.publish('update', { players, styles, match })
-  })
+    if (timeoutRef.current !== null) { clearTimeout(timeoutRef.current) }
+
+    timeoutRef.current = setTimeout(() => {
+      timeoutRef.current = null
+      if (timer.startedAt) { setClock((new Date().getTime() - timer.startedAt) / 1000) }
+      else if (timer.endsAt) { setClock((timer.endsAt - new Date().getTime()) / 1000) }
+      else { setClock(0) }
+    }, 1000)
+  }, [timer, clock])
 
   return <Container style={{ padding: '10px' }}>
     <Grid>
@@ -169,10 +204,31 @@ const Game = ({ gameId }) => {
     </Segment>
 
     <Segment textAlign='center' color='grey'>
+      <Header textAlign='center'>Relógio</Header>
+      <Dropdown
+        placeholder='Tempo'
+        selection options={MATCH_TIME_OPTIONS}
+        value={timer.option}
+        onChange={(_, { value: option }) => { setTimer({ option, running: false }) }} />
+      {
+        Boolean(timer.option) && (timer.running ?
+          <Button basic style={{ marginLeft: 5 }} onClick={stopTimer} color='red'>Zerar</Button> :
+          <Button basic style={{ marginLeft: 5 }} onClick={startTimer} color='green'>Iniciar</Button>)
+      }
+      <div style={{ marginTop: 10 }}>
+        {
+          Boolean(clock) && <Label size="big">
+            { Math.floor(clock / 60).toString().padStart(2, '0') }:
+            { Math.floor(clock % 60).toString().padStart(2, '0') }
+          </Label>
+        }
+      </div>
+    </Segment>
+
+    <Segment textAlign='center' color='grey'>
       <Header textAlign='center'>Sincronizar tela</Header>
       <p>Digite o código da tela que deseja sincronizar</p>
       <Input
-
         onChange={(e) => { setRemoteControl(e.target.value.toUpperCase()) } }
         value={remoteControl}
         action={<Button onClick={syncDevice} children='Sincronizar' />}
