@@ -1,7 +1,7 @@
 import React from 'react'
 import { Label, Progress } from 'semantic-ui-react'
 
-export default function Timer({ startedAt, endsAt, total, size }) {
+export default function Timer({ startedAt, endsAt, total, size, running }) {
   const timeoutRef = React.useRef(null)
   const [clock, setClock] = React.useState(0)
   const calcColor = () => {
@@ -18,6 +18,7 @@ export default function Timer({ startedAt, endsAt, total, size }) {
     if (timeoutRef.current !== null) { clearTimeout(timeoutRef.current) }
 
     timeoutRef.current = setTimeout(() => {
+      if (!running) return
       timeoutRef.current = null
       if (startedAt) { setClock((new Date().getTime() - startedAt) / 1000) }
       else if (endsAt) { setClock(Math.max(endsAt - new Date().getTime(), 0) / 1000) }

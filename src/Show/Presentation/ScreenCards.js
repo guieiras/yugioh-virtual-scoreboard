@@ -14,8 +14,8 @@ const ScreenCards = ({ match, players, style, timer }) => {
         winWith={0} />
     </Grid.Column>
     <Grid.Column width={2} textAlign='center' verticalAlign='middle'>
-      {Boolean(timer.option) ?
-        <Timer total={timer.option} startedAt={timer.startedAt} endsAt={timer.endsAt} size='huge' /> :
+      { Boolean(timer && timer.option) ?
+        <Timer total={timer.option} startedAt={timer.startedAt} endsAt={timer.endsAt} running={timer.running} size='huge' /> :
         <Icon inverted color='grey' name='times' size='huge' />}
     </Grid.Column>
     <Grid.Column width={7} verticalAlign='middle'>

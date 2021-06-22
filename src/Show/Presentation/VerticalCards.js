@@ -17,7 +17,8 @@ const VerticalCards = ({ match, players, style, timer }) => {
         </Segment>
       </Grid.Column>
       <Grid.Column style={{ textAlign: 'center' }}>
-        { Boolean(timer.option) && <Timer total={timer.option} startedAt={timer.startedAt} endsAt={timer.endsAt} size='massive' /> }
+        { Boolean(timer && timer.option) &&
+          <Timer total={timer.option} startedAt={timer.startedAt} endsAt={timer.endsAt} running={timer.running} size='massive' /> }
       </Grid.Column>
       <Grid.Column>
         <Image centered src={players[1].deckUrl} size='small' bordered />
