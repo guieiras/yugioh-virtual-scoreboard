@@ -92,16 +92,41 @@ const Game = ({ gameId }) => {
     getChannelByMirror(remoteControl).publish('update', { id: gameId, state: { players, styles, match } })
   }
   const stopTimer = () => {
-    setTimer({ option: timer.option, running: false })
+    const newTimer = { option: timer.option, running: false }
+
+    setTimer(newTimer)
+    setClock(0)
+    sendData({ timer: newTimer })
   }
-  const startTimer = () => {
+  const pauseTimer = () => {
+    const newTimer = { option: timer.option, running: false, remainingTime: clock }
+
+    setTimer(newTimer)
+    sendData({ timer: newTimer })
+  }
+  const resumeTimer = () => {
     const timeOption =
-      timer.option === -1 ? { startedAt: new Date().getTime() } :
-                            { endsAt: new Date().getTime() + (timer.option * 60 * 1000) }
+      timer.option === -1 ? { startedAt: new Date().getTime() - clock * 1000 } :
+        { endsAt: new Date().getTime() + clock * 1000 }
     const newTimer = { option: timer.option, ...timeOption, running: true }
 
     setTimer(newTimer)
     sendData({ timer: newTimer })
+  }
+  const startTimer = () => {
+    const timeOption =
+    timer.option === -1 ? { startedAt: new Date().getTime() } :
+    { endsAt: new Date().getTime() + (timer.option * 60 * 1000) }
+    const newTimer = { option: timer.option, ...timeOption, running: true }
+
+    setTimer(newTimer)
+    sendData({ timer: newTimer })
+  }
+  const changeOption = (option) => {
+    const newTimer = { option, running: false }
+
+    setTimer(newTimer)
+    sendData(newTimer)
   }
 
   const [players, setPlayers] = React.useState([
@@ -130,6 +155,8 @@ const Game = ({ gameId }) => {
     if (timeoutRef.current !== null) { clearTimeout(timeoutRef.current) }
 
     timeoutRef.current = setTimeout(() => {
+      if (!timer.running) return
+
       timeoutRef.current = null
       if (timer.startedAt) { setClock((new Date().getTime() - timer.startedAt) / 1000) }
       else if (timer.endsAt) { setClock((timer.endsAt - new Date().getTime()) / 1000) }
@@ -205,15 +232,21 @@ const Game = ({ gameId }) => {
 
     <Segment textAlign='center' color='grey'>
       <Header textAlign='center'>Relógio</Header>
-      <Dropdown
+      { !timer.running && <Dropdown
         placeholder='Tempo'
         selection options={MATCH_TIME_OPTIONS}
         value={timer.option}
-        onChange={(_, { value: option }) => { setTimer({ option, running: false }) }} />
+        onChange={(_, { value: option }) => { changeOption(option) }} /> }
       {
         Boolean(timer.option) && (timer.running ?
-          <Button basic style={{ marginLeft: 5 }} onClick={stopTimer} color='red'>Zerar</Button> :
-          <Button basic style={{ marginLeft: 5 }} onClick={startTimer} color='green'>Iniciar</Button>)
+          <Button basic onClick={pauseTimer} color='red'>Pausar</Button> :
+          (
+            Boolean(timer.remainingTime) ? <>
+              <Button basic style={{ marginLeft: 5 }} onClick={stopTimer} color='red'>Zerar</Button>
+              <Button basic style={{ marginLeft: 5 }} onClick={resumeTimer} color='green'>Retomar</Button>
+            </> :
+            <Button basic style={{ marginLeft: 5 }} onClick={startTimer} color='green'>Iniciar</Button>)
+          )
       }
       <div style={{ marginTop: 10 }}>
         {
