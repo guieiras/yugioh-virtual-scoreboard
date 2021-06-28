@@ -126,7 +126,7 @@ const Game = ({ gameId }) => {
     const newTimer = { option, running: false }
 
     setTimer(newTimer)
-    sendData(newTimer)
+    sendData({ timer: newTimer })
   }
 
   const [players, setPlayers] = React.useState([
@@ -249,12 +249,14 @@ const Game = ({ gameId }) => {
           )
       }
       <div style={{ marginTop: 10 }}>
-        {
-          Boolean(clock) && <Label size="big">
-            { Math.floor(clock / 60).toString().padStart(2, '0') }:
-            { Math.floor(clock % 60).toString().padStart(2, '0') }
-          </Label>
-        }
+        <Label size="big">
+          {
+            Boolean(clock) && clock > 0 ? <>
+              { Math.floor(clock / 60).toString().padStart(2, '0') }:
+              { Math.floor(clock % 60).toString().padStart(2, '0') }
+            </> : "00:00"
+          }
+        </Label>
       </div>
     </Segment>
 
