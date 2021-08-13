@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router } from '@reach/router';
 import Game from './Game';
 import Home from './Home';
+import Remote from './Remote';
 import Show from './Show';
 import reportWebVitals from './reportWebVitals';
 
@@ -12,6 +13,7 @@ ReactDOM.render(
   <Router>
     <Home path="/" />
     <Show path="/show" />
+    <Remote path="/remote" />
     <Game path="game/:gameId" />
   </Router>,
   document.getElementById('root')
