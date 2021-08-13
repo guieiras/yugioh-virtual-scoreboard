@@ -1,8 +1,10 @@
 import React from 'react'
-import { Button, Container, Dropdown, Grid, Header, Icon, Input, Label, Segment } from 'semantic-ui-react'
+import { Button, Container, Dropdown, Grid, Header, Icon, Input, Label, Radio, Segment } from 'semantic-ui-react'
 import Duelist from './Game/Duelist'
 import Calculator from './Game/Calculator'
 import { getChannelByGame, getChannelByMirror } from './lib/channel'
+import Command from './Game/Command'
+import DesktopCalculator from './Game/DesktopCalculator'
 
 const DEFAULT_IMAGE_URL = '/cardback.png'
 const MATCH_OPTIONS = [
@@ -25,6 +27,7 @@ const Game = ({ gameId }) => {
     channel.current && channel.current.publish('update', { players, styles, match, timer, ...overrides })
   }
 
+  const [desktopMode, setDesktopMode] = React.useState(false)
   const [remoteControl, setRemoteControl] = React.useState('')
   const setMinus = (player, amount) => {
     const clone = [...players]
@@ -68,21 +71,20 @@ const Game = ({ gameId }) => {
     }
   }
   const setGameResult = (result) => {
-    return () => {
-      const clone = [...match]
-      let done = false
-      clone.forEach((game, idx) => {
-        if (!done && game === -1) {
-          clone[idx] = result
-          done = true
-        }
-      })
-      if (done) {
-        resetLP()
-        setMatch(clone)
+    const clone = [...match]
+    let done = false
+    clone.forEach((game, idx) => {
+      if (!done && game === -1) {
+        clone[idx] = result
+        done = true
       }
+    })
+    if (done) {
+      resetLP()
+      setMatch(clone)
     }
   }
+
   const resetMatch = () => {
     resetLP()
     setMatch(new Array(match.length).fill(-1))
@@ -191,13 +193,31 @@ const Game = ({ gameId }) => {
         </Grid.Column>
       </Grid.Row>
     </Grid>
-    <Calculator
-      onMinus={setMinus}
-      onPlus={setPlus}
-      onDivide={setDivide}
-      onReset={resetLP}
-      onSet={setLP}
-    />
+    {
+      desktopMode ? <>
+        <DesktopCalculator
+          onMinus={setMinus}
+          onPlus={setPlus}
+          onDivide={setDivide}
+          onReset={resetLP}
+          onSet={setLP}
+        />
+        <Command
+          onMinus={setMinus}
+          onPlus={setPlus}
+          onDivide={setDivide}
+          onReset={resetLP}
+          onSet={setLP}
+          onGameResult={setGameResult}
+        />
+      </> : <Calculator
+        onMinus={setMinus}
+        onPlus={setPlus}
+        onDivide={setDivide}
+        onReset={resetLP}
+        onSet={setLP}
+      />
+    }
     <Segment textAlign='center' color='grey'>
       <Header textAlign='center'>Match</Header>
       <div className='ui center' style={{ margin: '10px' }}>
@@ -219,9 +239,9 @@ const Game = ({ gameId }) => {
         match.length > 0 && <>
           <Header size="small" textAlign='center'>Quem venceu o game atual?</Header>
           <Button.Group>
-            <Button basic color='blue' onClick={setGameResult(0)}>{players[0].name || 'Jogador 1'}</Button>
-            <Button basic color='yellow' onClick={setGameResult(-2)}>Empate</Button>
-            <Button basic color='red' onClick={setGameResult(1)}>{players[1].name || 'Jogador 2'}</Button>
+            <Button basic color='blue' onClick={() => setGameResult(0)}>{players[0].name || 'Jogador 1'}</Button>
+            <Button basic color='yellow' onClick={() => setGameResult(-2)}>Empate</Button>
+            <Button basic color='red' onClick={() => setGameResult(1)}>{players[1].name || 'Jogador 2'}</Button>
           </Button.Group>
           <div style={{ marginTop: '10px' }}>
             <Button onClick={resetMatch}>Redefinir</Button>
@@ -258,6 +278,12 @@ const Game = ({ gameId }) => {
           }
         </Label>
       </div>
+    </Segment>
+
+    <Segment textAlign='center' color='grey'>
+      <Header textAlign='center'>Modo Desktop</Header>
+      <p>O modo desktop é otimizado para ser operado do computador.</p>
+      <Radio toggle checked={desktopMode} onChange={() => setDesktopMode(!desktopMode)} />
     </Segment>
 
     <Segment textAlign='center' color='grey'>
