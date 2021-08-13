@@ -1,7 +1,7 @@
 import React from 'react'
 import { v1 as uuidV1 } from 'uuid'
 
-import { getChannelByGame, getChannelByMirror } from './lib/channel'
+import { getChannelByGame, getChannelByMirror, getChannelByRemote } from './lib/channel'
 import Presentation from './Show/Presentation'
 import Lobby from './Show/Lobby'
 import { getSyncCode } from './lib/syncCode'
@@ -35,13 +35,20 @@ const Show = () => {
     getChannelByMirror(newCode).subscribe(({ data }) => setMirror(data))
   }
 
-  function setMirror({ id, state }) {
-    unsubscribeClient(getChannelByGame, uuid)
-    unsubscribeClient(getChannelByMirror, mirrorCode)
-    setMirrorCode(null)
+  function setMirror({ id, state, remoteControlId }) {
+    if (remoteControlId) {
+      getChannelByRemote(remoteControlId)
+        .publish('update', { gameId: uuid })
+    }
 
-    setGameState(state)
-    subscribeToUuid(id)
+    if (id && state) {
+      unsubscribeClient(getChannelByGame, uuid)
+      unsubscribeClient(getChannelByMirror, mirrorCode)
+      setMirrorCode(null)
+
+      setGameState(state)
+      subscribeToUuid(id)
+    }
   }
 
   function subscribeToUuid(gameId) {
