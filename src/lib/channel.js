@@ -9,3 +9,7 @@ export function getChannelByGame(gameId) {
 export function getChannelByMirror(code) {
   return window.Ably.channels.get(`mirror/${code}`)
 }
+
+export function getChannelByRemote(remote) {
+  return window.Ably.channels.get(`remote/${remote}`)
+}
