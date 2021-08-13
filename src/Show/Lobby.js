@@ -11,7 +11,7 @@ const Lobby = ({ mirror, uuid }) => {
   const hostRoute = `${location.origin}/game/${uuid}`
 
   const header = 'Modo de apresentação'
-  const mirrorHeader = 'Sincronizar com controle remoto'
+  const mirrorHeader = 'Código de pareamento'
   const mirrorDescription = 'Digite o código abaixo no dispositivo em modo de controle'
   const info = 'Entre usando o QR Code acima ou através da seguinte URL'
 
@@ -26,7 +26,7 @@ const Lobby = ({ mirror, uuid }) => {
   </Container> : <div style={{ display: 'flex', flexDirection: 'row', verticalAlign: 'middle' }}>
     <div style={{ display: 'flex', flexDirection: 'row', padding: '0 20px' }}>
       <QRCode value={hostRoute} size={ windowSize.width ? Math.min(windowSize.width / 4, windowSize.height) : 0} includeMargin />
-      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <Header as='h3' content={header} />
         <p style={{ margin: 0 }}>{info}</p>
         <Link to={`/game/${uuid}`}>{hostRoute}</Link>

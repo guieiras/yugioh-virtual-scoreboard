@@ -262,7 +262,7 @@ const Game = ({ gameId }) => {
 
     <Segment textAlign='center' color='grey'>
       <Header textAlign='center'>Sincronizar tela</Header>
-      <p>Digite o código da tela que deseja sincronizar</p>
+      <p>Digite o código de pareamento para sincronizar a tela</p>
       <Input
         onChange={(e) => { setRemoteControl(e.target.value.toUpperCase()) } }
         value={remoteControl}
