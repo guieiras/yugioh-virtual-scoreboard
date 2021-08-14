@@ -4,7 +4,7 @@ import Timer from './Cards/Timer'
 import PlayerCard from './Screen/PlayerCard'
 
 const ScreenCards = ({ match, players, style, timer }) => {
-  return <Grid stackable style={{ margin: 0, height: '100vh', backgroundColor: style.background }}>
+  return <Grid stackable style={{ margin: 0, height: '100vh' }}>
     <Grid.Column width={7} verticalAlign='middle'>
       <PlayerCard
         deckUrl={players[0].deckUrl}

@@ -4,7 +4,7 @@ import MatchIcon from '../MatchIcon'
 import Timer from './Cards/Timer'
 
 const VerticalCards = ({ match, players, style, timer }) => {
-  return <Grid style={{ margin: 0, height: '100vh', backgroundColor: style.background }} verticalAlign='middle' columns={1}>
+  return <Grid style={{ margin: 0, height: '100vh' }} verticalAlign='middle' columns={1}>
     <Grid.Row verticalAlign='middle' centered>
       <Grid.Column>
         <Image centered src={players[0].deckUrl} size='small' bordered />

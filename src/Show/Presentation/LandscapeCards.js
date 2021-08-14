@@ -13,7 +13,7 @@ const LandscapeCards = ({ match, players, style, timer }) => {
     if (clientHeight) { setTimeout(() => { setHeight(clientHeight) }, 1000) }
   })
 
-  return <Grid stackable style={{ margin: 0, height: '100vh', backgroundColor: style.background }}>
+  return <Grid stackable style={{ margin: 0, height: '100vh' }}>
     <Grid.Column width={2} style={{ height: '100%' }}>
       <div ref={containerRef} style={{ height: '100%' }} />
     </Grid.Column>
