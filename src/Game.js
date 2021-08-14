@@ -25,7 +25,7 @@ const MATCH_TIME_OPTIONS = [
 const Game = ({ gameId }) => {
   const channel = React.useRef(null)
   const sendData = (overrides = {}) => {
-    channel.current && channel.current.publish('update', { players, styles, match, timer, ...overrides })
+    channel.current && channel.current.publish('update', { players, match, timer, ...overrides })
   }
 
   const [desktopMode, setDesktopMode] = React.useState(!isMobile)
@@ -92,7 +92,7 @@ const Game = ({ gameId }) => {
   }
   const syncDevice = () => {
     setRemoteControl('')
-    getChannelByMirror(remoteControl).publish('update', { id: gameId, state: { players, styles, match } })
+    getChannelByMirror(remoteControl).publish('update', { id: gameId, state: { players, match } })
   }
   const stopTimer = () => {
     const newTimer = { option: timer.option, running: false }
@@ -138,7 +138,6 @@ const Game = ({ gameId }) => {
   ])
 
   const [decks, setDecks] = React.useState([])
-  const [styles] = React.useState({})
   const [match, setMatch] = React.useState([])
   const [timer, setTimer] = React.useState({ option: 0, running: false })
   const [clock, setClock] = React.useState(0)
@@ -153,7 +152,7 @@ const Game = ({ gameId }) => {
     channel.current = getChannelByGame(gameId)
   }, [gameId])
 
-  React.useEffect(sendData, [players, styles, match]) // eslint-disable-line
+  React.useEffect(sendData, [players, match]) // eslint-disable-line
   React.useEffect(() => {
     if (timeoutRef.current !== null) { clearTimeout(timeoutRef.current) }
 

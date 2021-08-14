@@ -4,7 +4,7 @@ import { Grid, Header, Icon, Image, Segment } from 'semantic-ui-react'
 import MatchIcon from '../MatchIcon'
 import Timer from './Cards/Timer'
 
-const LandscapeCards = ({ match, players, style, timer }) => {
+const LandscapeCards = ({ match, players, timer }) => {
   const [height, setHeight] = React.useState(0)
   const containerRef = React.useRef(null)
 

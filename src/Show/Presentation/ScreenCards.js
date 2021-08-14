@@ -3,7 +3,7 @@ import { Grid, Icon } from 'semantic-ui-react'
 import Timer from './Cards/Timer'
 import PlayerCard from './Screen/PlayerCard'
 
-const ScreenCards = ({ match, players, style, timer }) => {
+const ScreenCards = ({ match, players, timer }) => {
   return <Grid stackable style={{ margin: 0, height: '100vh' }}>
     <Grid.Column width={7} verticalAlign='middle'>
       <PlayerCard

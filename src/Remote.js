@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, Grid, Header, Icon, Input } from 'semantic-ui-react'
 import { v1 as uuidV1 } from 'uuid'
+import { navigate } from '@reach/router'
 
 import { getChannelByMirror, getChannelByRemote } from './lib/channel'
 
@@ -10,7 +11,7 @@ const Remote = () => {
 
   React.useEffect(() => {
     getChannelByRemote(remoteControlId).subscribe(({ data }) => {
-      window.location.href = `${window.location.origin}/game/${data.gameId}`
+      navigate(`game/${data.gameId}`)
     })
   }, []) // eslint-disable-line
 
