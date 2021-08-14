@@ -61,7 +61,7 @@ const Command = ({ onMinus, onPlus, onDivide, onReset, onSet, onGameResult }) =>
     </Header>
 
     <Input icon value={command} onChange={(e) => writeCommand(e.target.value)} onKeyDown={handleKeyDown}>
-      <input />
+      <input style={{ color: description() ? 'green' : 'red' }} />
       <Icon name={{ '+': 'plus', '-': 'minus', '.': 'chevron right', '/': 'percent', 'C': 'eraser', 'W': 'trophy', 'D': 'handshake' }[action]} />
     </Input>
     <p style={{ marginTop: 10 }}>{description() || 'O comando não é válido'}</p>
