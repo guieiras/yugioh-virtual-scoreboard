@@ -15,9 +15,9 @@ const Calculator = ({ onMinus, onPlus, onDivide, onReset, onSet }) => {
       clearCalc()
     }
   }
-  const divideBy2 = (player) => {
+  const divideBy = (player) => {
     return () => {
-      onDivide && onDivide(player, 2)
+      onDivide && onDivide(player, value || 2)
       clearCalc()
     }
   }
@@ -49,14 +49,14 @@ const Calculator = ({ onMinus, onPlus, onDivide, onReset, onSet }) => {
       <div style={{ margin: '5px -10px 25px', display: 'flex', justifyContent: 'space-around' }}>
         <Button.Group style={{ padding: 0 }}>
           <Button onClick={setLP(0)} icon='share' color='grey' />
-          <Button onClick={divideBy2(0)} icon='percent' color='orange' />
+          <Button onClick={divideBy(0)} icon='percent' color='orange' />
           <Button onClick={minus(0)} icon='minus' color='red' />
           <Button onClick={plus(0)} icon='plus' color='green' />
         </Button.Group>
         <Button.Group style={{ padding: 0 }}>
           <Button onClick={plus(1)} icon='plus' color='green' />
           <Button onClick={minus(1)} icon='minus' color='red' />
-          <Button onClick={divideBy2(1)} icon='percent' color='orange' />
+          <Button onClick={divideBy(1)} icon='percent' color='orange' />
           <Button onClick={setLP(1)} icon='share' color='grey' />
         </Button.Group>
       </div>
