@@ -11,9 +11,9 @@ const Command = ({ onMinus, onPlus, onDivide, onReset, onSet, onGameResult }) =>
   const writeCommand = (input) => {
     const commandInput = input.toUpperCase()
     const matchCommand = commandInput.match(/^[12]?[+-./DCW]?\d*$/)
-    if (commandInput !== '' && (!matchCommand || commandInput.match(/^\d{2}/))) { return }
+    if (commandInput !== '' && (!matchCommand || commandInput.match(/^[^12]$/) || commandInput.match(/^\d{2}/))) { return }
 
-    const [[typedPlayer, typedAction], number] = matchCommand[0].split(/(?<=\d[^0-9])/)
+    const [, typedPlayer, typedAction, number] = matchCommand[0].match(/(\d)?([^0-9])?(\d+)?/)
     const prePlayer = parseInt(typedPlayer, 10)
     setPlayer([1, 2].includes(prePlayer) ? prePlayer - 1 : -1)
     setCommand(matchCommand[0])
