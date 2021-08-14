@@ -15,9 +15,9 @@ const DesktopCalculator = ({ onMinus, onPlus, onDivide, onReset, onSet }) => {
       clearCalc()
     }
   }
-  const divideBy2 = (player) => {
+  const divideBy = (player) => {
     return () => {
-      onDivide && onDivide(player, 2)
+      onDivide && onDivide(player, value || 2)
       clearCalc()
     }
   }
@@ -49,7 +49,7 @@ const DesktopCalculator = ({ onMinus, onPlus, onDivide, onReset, onSet }) => {
     <div>
       <Button onClick={minus(0)} size='tiny' icon='minus' color='red' content='Subtrair' />
       <Button onClick={plus(0)} size='tiny' icon='plus' color='green' content='Adicionar' />
-      <Button onClick={divideBy2(0)} size='tiny' icon='percent' color='orange' content='Dividir' />
+      <Button onClick={divideBy(0)} size='tiny' icon='percent' color='orange' content='Dividir' />
       <Button onClick={setLP(0)} size='tiny' icon='share' color='grey' content='Definir' />
     </div>
 
@@ -57,7 +57,7 @@ const DesktopCalculator = ({ onMinus, onPlus, onDivide, onReset, onSet }) => {
     <div>
       <Button onClick={minus(1)} size='tiny' icon='minus' color='red' content='Subtrair' />
       <Button onClick={plus(1)} size='tiny' icon='plus' color='green' content='Adicionar' />
-      <Button onClick={divideBy2(1)} size='tiny' icon='percent' color='orange' content='Dividir' />
+      <Button onClick={divideBy(1)} size='tiny' icon='percent' color='orange' content='Dividir' />
       <Button onClick={setLP(1)} size='tiny' icon='share' color='grey' content='Definir' />
     </div>
 
