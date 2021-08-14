@@ -1,4 +1,5 @@
 import React from 'react'
+import { isMobile } from 'react-device-detect'
 import { Button, Container, Dropdown, Grid, Header, Icon, Input, Label, Radio, Segment } from 'semantic-ui-react'
 import Duelist from './Game/Duelist'
 import Calculator from './Game/Calculator'
@@ -27,7 +28,7 @@ const Game = ({ gameId }) => {
     channel.current && channel.current.publish('update', { players, styles, match, timer, ...overrides })
   }
 
-  const [desktopMode, setDesktopMode] = React.useState(false)
+  const [desktopMode, setDesktopMode] = React.useState(!isMobile)
   const [remoteControl, setRemoteControl] = React.useState('')
   const setMinus = (player, amount) => {
     const clone = [...players]
