@@ -52,7 +52,7 @@ const Command = ({ onMinus, onPlus, onDivide, onReset, onSet, onGameResult }) =>
       'C': `Limpa os pontos de vida`,
       'W': `Vitória do jogador ${player + 1}`,
       'D': 'Empate no jogo atual'
-    }[action] || 'O comando não é válido'
+    }[action]
   }
 
   return <Segment attached='top' textAlign="center">
@@ -64,7 +64,7 @@ const Command = ({ onMinus, onPlus, onDivide, onReset, onSet, onGameResult }) =>
       <input />
       <Icon name={{ '+': 'plus', '-': 'minus', '.': 'chevron right', '/': 'percent', 'C': 'eraser', 'W': 'trophy', 'D': 'handshake' }[action]} />
     </Input>
-    <p style={{ marginTop: 10 }}>{description()}</p>
+    <p style={{ marginTop: 10 }}>{description() || 'O comando não é válido'}</p>
 
     <Button circular icon='help' style={{ position: 'absolute', right: 10, top: 10 }} onClick={() => setHelpVisible(true)} />
     <CommandHelp visible={helpVisible} onOpen={() => setHelpVisible(true)} onClose={() => setHelpVisible(false)} />
