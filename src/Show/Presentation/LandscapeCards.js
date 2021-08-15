@@ -13,15 +13,15 @@ const LandscapeCards = ({ match, players, timer }) => {
     if (clientHeight) { setTimeout(() => { setHeight(clientHeight) }, 1000) }
   })
 
-  return <Grid stackable style={{ margin: 0, height: '100vh' }}>
+  return <Grid stackable style={{ margin: 0, height: '100vh' }} className='presentation landscape'>
     <Grid.Column width={2} style={{ height: '100%' }}>
       <div ref={containerRef} style={{ height: '100%' }} />
     </Grid.Column>
     <Grid.Column width={5} style={{ height: '100%' }}>
-      <Segment style={{ height: '100%', display: 'flex' }}>
+      <Segment style={{ height: '100%', display: 'flex' }} className='player-box'>
         <div style={{ width: '100%', textAlign: 'right' }}>
-          <Header as='p' size='huge' style={{ margin: 0 }}>{players[0].lp}</Header>
-          <Header as='p' size='medium'>{players[0].name}</Header>
+          <Header as='p' size='huge' className='player-lp' style={{ margin: 0 }}>{players[0].lp}</Header>
+          <Header as='p' size='medium' className='player-name'>{players[0].name}</Header>
           { match?.length ? <div className='ui center'>
             { match.map((result, idx) => <MatchIcon key={idx + 1} winWith={0} result={result} />) }
           </div> : undefined}
@@ -37,13 +37,13 @@ const LandscapeCards = ({ match, players, timer }) => {
         <Icon inverted color='grey' name='times' size='huge' /> }
     </Grid.Column>
     <Grid.Column width={5} style={{ height: '100%' }}>
-      <Segment style={{ height: '100%', display: 'flex' }}>
+      <Segment style={{ height: '100%', display: 'flex' }} className='player-box'>
         <div style={{ marginRight: 20, height: '100%'}}>
           <Image src={players[1].deckUrl} style={{ maxHeight: height, width: height }} />
         </div>
         <div style={{ width: '100%' }}>
-          <Header as='p' size='huge' style={{ margin: 0 }}>{players[1].lp}</Header>
-          <Header as='p' size='medium'>{players[1].name}</Header>
+          <Header as='p' size='huge' className='player-lp' style={{ margin: 0 }}>{players[1].lp}</Header>
+          <Header as='p' size='medium' className='player-name'>{players[1].name}</Header>
           {match?.length ? <div className='ui center'>
             {match.map((result, idx) => <MatchIcon key={idx + 1} winWith={1} result={result} />)}
           </div> : undefined}

@@ -1,0 +1,22 @@
+.presentation {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.presentation .player-box {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.presentation .player-box .player-lp {
+  color: rgba(0,0,0,.87);
+}
+
+.presentation .player-box .player-name {
+  color: rgba(0,0,0,.87);
+}
+
+.presentation.screen .player-box {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 6px;
+  left: 6px;
+}

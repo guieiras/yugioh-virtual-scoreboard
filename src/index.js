@@ -8,6 +8,7 @@ import Show from './Show';
 import reportWebVitals from './reportWebVitals';
 
 import 'semantic-ui-css/semantic.min.css'
+import './styles/index.css'
 
 ReactDOM.render(
   <Router>
