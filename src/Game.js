@@ -167,6 +167,18 @@ const Game = ({ gameId }) => {
   }, [timer, clock])
 
   return <Container style={{ padding: '10px' }}>
+    {
+      gameId.startsWith('w-') ? <Segment color='red'>
+        <Header size='medium' icon='exclamation triangle' content='Atenção' />
+        <p style={{ fontSize: 16, marginTop: 10 }}>
+          Altere o endereço do navegador do seu OBS/StreamLabs para a versão mais atualizada.
+        </p>
+        <p style={{ marginTop: 10 }}>
+          Na próxima atualização, o endereço que você está utilizando será descontinuado.
+          Faça a alteração para esta URL: <span style={{ color: 'cornflowerblue' }}>{window.location.origin}/show</span>
+        </p>
+      </Segment> : null
+    }
     <Grid>
       <Grid.Row>
         <Grid.Column width={8} textAlign="center">

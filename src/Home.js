@@ -1,9 +1,9 @@
 import React from 'react'
-import { redirectTo } from '@reach/router'
+import { navigate } from '@reach/router'
 
 const Home = () => {
   React.useEffect(() => {
-    redirectTo('/show')
+    navigate('show', { state: { warning: true } })
   }, []);
 
   return null;
