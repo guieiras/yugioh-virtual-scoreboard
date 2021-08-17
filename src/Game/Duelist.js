@@ -1,7 +1,9 @@
 import React from 'react'
 import { Card, Dropdown, Header, Input } from 'semantic-ui-react'
+import useTranslation from '../locales'
 
 const Duelist = ({ title, lp, decks, deck, onSetDeck, name, onSetName }) => {
+  const { t } = useTranslation('Game')
   const options = (decks || []).map(({ name, uid }) => (
     { key: uid, text: name, value: uid }
   ))
@@ -11,20 +13,20 @@ const Duelist = ({ title, lp, decks, deck, onSetDeck, name, onSetName }) => {
     <Card.Content>
       <Input
         fluid
-        placeholder='Nome do jogador'
+        placeholder={t('playerName')}
         icon='user'
         onChange={(e) => onSetName(e.target.value)}
         value={name}
       />
       <Dropdown
         style={{ marginTop: '10px' }}
-        placeholder='Deck'
+        placeholder={t('deck')}
         fluid
         search
         selection
-        noResultsMessage='Nenhum deck encontrado'
+        noResultsMessage={t('noDeckFound')}
         options={options}
-        onChange={(_, { value }) => { onSetDeck(value) } }
+        onChange={(_, { value }) => { onSetDeck(value) }}
         value={deck}
       />
     </Card.Content>

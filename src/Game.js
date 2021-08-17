@@ -6,23 +6,17 @@ import Calculator from './Game/Calculator'
 import { getChannelByGame, getChannelByMirror } from './lib/channel'
 import Command from './Game/Command'
 import DesktopCalculator from './Game/DesktopCalculator'
+import useTranslation from './locales'
+import localizedOptions from './lib/localizedOptions'
 
 const DEFAULT_IMAGE_URL = '/cardback.png'
-const MATCH_OPTIONS = [
-  { key: 0, text: 'Sem Match', value: 0 },
-  { key: 3, text: 'Melhor de 3', value: 3 },
-  { key: 5, text: 'Melhor de 5', value: 5 }
-]
-const MATCH_TIME_OPTIONS = [
-  { key: 0, text: 'Nenhum', value: 0 },
-  { key: -1, text: 'Progressivo', value: -1 },
-  { key: 30, text: '30 minutos', value: 30 },
-  { key: 40, text: '40 minutos', value: 40 },
-  { key: 50, text: '50 minutos', value: 50 },
-  { key: 60, text: '1 hora', value: 60 }
-]
+const MATCH_OPTIONS = [0, 3, 5]
+const MATCH_TIME_OPTIONS = [0, -1, 30, 40, 50, 60]
 
 const Game = ({ gameId }) => {
+  const { t: tMatchOptions } = useTranslation('MatchOptions')
+  const { t: tMatchTimeOptions } = useTranslation('MatchTimeOptions')
+  const { t } = useTranslation('Game')
   const channel = React.useRef(null)
   const sendData = (overrides = {}) => {
     channel.current && channel.current.publish('update', { players, match, timer, ...overrides })
@@ -33,7 +27,7 @@ const Game = ({ gameId }) => {
   const setMinus = (player, amount) => {
     const clone = [...players]
     clone[player].lp = clone[player].lp - amount
-    if(clone[player].lp < 0) { clone[player].lp = 0 }
+    if (clone[player].lp < 0) { clone[player].lp = 0 }
     setPlayers(clone)
   }
   const setPlus = (player, amount) => {
@@ -118,8 +112,8 @@ const Game = ({ gameId }) => {
   }
   const startTimer = () => {
     const timeOption =
-    timer.option === -1 ? { startedAt: new Date().getTime() } :
-    { endsAt: new Date().getTime() + (timer.option * 60 * 1000) }
+      timer.option === -1 ? { startedAt: new Date().getTime() } :
+        { endsAt: new Date().getTime() + (timer.option * 60 * 1000) }
     const newTimer = { option: timer.option, ...timeOption, running: true }
 
     setTimer(newTimer)
@@ -183,7 +177,7 @@ const Game = ({ gameId }) => {
       <Grid.Row>
         <Grid.Column width={8} textAlign="center">
           <Duelist
-            title="Jogador 1"
+            title={t('player', { count: 1 })}
             decks={decks}
             name={players[0].name}
             deck={players[0].deck}
@@ -194,7 +188,7 @@ const Game = ({ gameId }) => {
         </Grid.Column>
         <Grid.Column width={8} textAlign="center">
           <Duelist
-            title="Jogador 2"
+            title={t('player', { count: 2 })}
             decks={decks}
             name={players[1].name}
             deck={players[1].deck}
@@ -231,61 +225,59 @@ const Game = ({ gameId }) => {
       />
     }
     <Segment textAlign='center' color='grey'>
-      <Header textAlign='center'>Match</Header>
+      <Header textAlign='center'>{t('match')}</Header>
       <div className='ui center' style={{ margin: '10px' }}>
         {
           match.map((game, idx) => <Icon
             key={idx + 1}
             name='circle'
-            color={game === -1 ? 'grey' : game === -2 ? 'yellow' : game === 0 ? 'blue' : 'red' }
+            color={game === -1 ? 'grey' : game === -2 ? 'yellow' : game === 0 ? 'blue' : 'red'}
             size='large'
           />)
         }
       </div>
       <Dropdown
-        placeholder='Quantidade de Jogos'
-        selection options={MATCH_OPTIONS}
+        selection options={localizedOptions(MATCH_OPTIONS, tMatchOptions)}
         value={match.length}
         onChange={(_, { value }) => { setMatch(new Array(value).fill(-1)) }} />
       {
         match.length > 0 && <>
-          <Header size="small" textAlign='center'>Quem venceu o game atual?</Header>
+          <Header size="small" textAlign='center'>{t('whoWon')}</Header>
           <Button.Group>
-            <Button basic color='blue' onClick={() => setGameResult(0)}>{players[0].name || 'Jogador 1'}</Button>
-            <Button basic color='yellow' onClick={() => setGameResult(-2)}>Empate</Button>
-            <Button basic color='red' onClick={() => setGameResult(1)}>{players[1].name || 'Jogador 2'}</Button>
+            <Button basic color='blue' onClick={() => setGameResult(0)}>{players[0].name || t('player', { count: 1 })}</Button>
+            <Button basic color='yellow' onClick={() => setGameResult(-2)}>{t('draw')}</Button>
+            <Button basic color='red' onClick={() => setGameResult(1)}>{players[1].name || t('player', { count: 2 })}</Button>
           </Button.Group>
           <div style={{ marginTop: '10px' }}>
-            <Button onClick={resetMatch}>Redefinir</Button>
+            <Button onClick={resetMatch}>{t('reset')}</Button>
           </div>
         </>
       }
     </Segment>
 
     <Segment textAlign='center' color='grey'>
-      <Header textAlign='center'>Relógio</Header>
-      { !timer.running && <Dropdown
-        placeholder='Tempo'
-        selection options={MATCH_TIME_OPTIONS}
+      <Header textAlign='center'>{t('clock')}</Header>
+      {!timer.running && <Dropdown
+        selection options={localizedOptions(MATCH_TIME_OPTIONS, tMatchTimeOptions)}
         value={timer.option}
-        onChange={(_, { value: option }) => { changeOption(option) }} /> }
+        onChange={(_, { value: option }) => { changeOption(option) }} />}
       {
         Boolean(timer.option) && (timer.running ?
-          <Button basic onClick={pauseTimer} color='red'>Pausar</Button> :
+          <Button basic onClick={pauseTimer} color='red'>{t('timerPause')}</Button> :
           (
             Boolean(timer.remainingTime) ? <>
-              <Button basic style={{ marginLeft: 5 }} onClick={stopTimer} color='red'>Zerar</Button>
-              <Button basic style={{ marginLeft: 5 }} onClick={resumeTimer} color='green'>Retomar</Button>
+              <Button basic style={{ marginLeft: 5 }} onClick={stopTimer} color='red'>{t('timerStop')}</Button>
+              <Button basic style={{ marginLeft: 5 }} onClick={resumeTimer} color='green'>{t('timerResume')}</Button>
             </> :
-            <Button basic style={{ marginLeft: 5 }} onClick={startTimer} color='green'>Iniciar</Button>)
-          )
+              <Button basic style={{ marginLeft: 5 }} onClick={startTimer} color='green'>{t('timerStart')}</Button>)
+        )
       }
       <div style={{ marginTop: 10 }}>
         <Label size="big">
           {
             Boolean(clock) && clock > 0 ? <>
-              { Math.floor(clock / 60).toString().padStart(2, '0') }:
-              { Math.floor(clock % 60).toString().padStart(2, '0') }
+              {Math.floor(clock / 60).toString().padStart(2, '0')}:
+              {Math.floor(clock % 60).toString().padStart(2, '0')}
             </> : "00:00"
           }
         </Label>
@@ -293,18 +285,18 @@ const Game = ({ gameId }) => {
     </Segment>
 
     <Segment textAlign='center' color='grey'>
-      <Header textAlign='center'>Modo Desktop</Header>
-      <p>O modo desktop é otimizado para ser operado do computador.</p>
+      <Header textAlign='center'>{t('desktopMode')}</Header>
+      <p>{t('desktopModeDescription')}</p>
       <Radio toggle checked={desktopMode} onChange={() => setDesktopMode(!desktopMode)} />
     </Segment>
 
     <Segment textAlign='center' color='grey'>
-      <Header textAlign='center'>Sincronizar tela</Header>
-      <p>Digite o código de pareamento para sincronizar a tela</p>
+      <Header textAlign='center'>{t('sync')}</Header>
+      <p>{t('syncDescription')}</p>
       <Input
-        onChange={(e) => { setRemoteControl(e.target.value.toUpperCase()) } }
+        onChange={(e) => { setRemoteControl(e.target.value.toUpperCase()) }}
         value={remoteControl}
-        action={<Button onClick={syncDevice} children='Sincronizar' />}
+        action={<Button onClick={syncDevice} children={t('syncSubmit')} />}
       />
     </Segment>
   </Container>

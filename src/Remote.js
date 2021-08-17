@@ -4,8 +4,10 @@ import { v1 as uuidV1 } from 'uuid'
 import { navigate } from '@reach/router'
 
 import { getChannelByMirror, getChannelByRemote } from './lib/channel'
+import useTranslation from './locales'
 
 const Remote = () => {
+  const { t } = useTranslation('Remote')
   const [remoteControlId] = React.useState(uuidV1())
   const [remoteControl, setRemoteControl] = React.useState('')
 
@@ -26,12 +28,12 @@ const Remote = () => {
   return <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
     <Grid.Column style={{ maxWidth: 450 }}>
       <Icon name='linkify' size='huge' />
-      <Header as='h1' style={{ marginTop: 10 }} content='Sincronizar controle' />
-      <p style={{ marginTop: 10 }}>Digite o código de pareamento para obter o controle de uma tela</p>
+      <Header as='h1' style={{ marginTop: 10 }} content={t('title')} />
+      <p style={{ marginTop: 10 }}>{t('description')}</p>
       <Input
         value={remoteControl}
         onChange={changeRemoteControl}
-        action={<Button onClick={syncDevice} children='Sincronizar' />}
+        action={<Button onClick={syncDevice} children={t('sync')} />}
       />
     </Grid.Column>
   </Grid>
