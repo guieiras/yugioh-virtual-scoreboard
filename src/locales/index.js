@@ -2,6 +2,7 @@ import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { useTranslation, initReactI18next } from 'react-i18next';
 import ptBR from './pt-BR';
+import en from './en';
 
 i18n
   .use(LanguageDetector)
@@ -12,7 +13,8 @@ i18n
       lookupLocalStorage: 'locale'
     },
     resources: {
-      'pt-BR': ptBR
+      en: en,
+      'pt-BR': ptBR,
     }
   });
 
