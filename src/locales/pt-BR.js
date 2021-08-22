@@ -1,4 +1,13 @@
 const ptBR = {
+  metadata: {
+    country: 'BR',
+    name: 'Português (Brasil)'
+  },
+  AppMenu: {
+    remote: 'Controle Remoto',
+    show: 'Apresentação',
+    title: 'Remote Duels Show'
+  },
   Command: {
     descriptionAdd: 'Jogador {{player}} ganha {{value}} pontos de vida',
     descriptionClean: 'Limpa os pontos de vida de ambos os jogadores',
@@ -62,6 +71,15 @@ const ptBR = {
     timerResume: 'Retomar',
     timerStart: 'Iniciar',
     whoWon: 'Quem venceu o game atual?'
+  },
+  Landing: {
+    description: 'Um widget interativo com informações para o seu duelo remoto de Yu-Gi-Oh! controlável através do computador ou smartphone.',
+    configuring: 'Como configurar?',
+    configuring1: 'Você pode usar um programa que exiba um navegador ou abrir diretamente o link no seu navegador.',
+    configuring2: 'Use um desses tutoriais para iniciar. Configure a fonte usando a seguinte URL:',
+    open: 'Abrir',
+    app: 'Programa',
+    link: 'Link'
   },
   Lobby: {
     header: 'Modo de apresentação',

@@ -1,4 +1,13 @@
 const en = {
+  metadata: {
+    country: 'US',
+    name: 'English'
+  },
+  AppMenu: {
+    remote: 'Remote Control',
+    show: 'Presentation',
+    title: 'Remote Duels Show'
+  },
   Command: {
     descriptionAdd: 'Increase Player {{player}} life points by {{value}}',
     descriptionClean: 'Reset both players life points to 8000',
@@ -62,6 +71,15 @@ const en = {
     timerResume: 'Resume',
     timerStart: 'Start',
     whoWon: 'Who won current game?'
+  },
+  Landing: {
+    description: 'Interative widget with info to your Yu-Gi-Oh! Remote Duels. You can control it using your computer or smartphone.',
+    configuring: 'How to configure?',
+    configuring1: 'You can use a browser source on your favorite broadcast software or open link directly on your browser.',
+    configuring2: 'The links on table below can help you to setup a browser source on famous broadcast softwares. Use the following URL:',
+    open: 'Open',
+    app: 'Software',
+    link: 'Link'
   },
   Lobby: {
     header: 'Presentation mode',
