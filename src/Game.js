@@ -7,6 +7,7 @@ import { getChannelByGame, getChannelByMirror } from './lib/channel'
 import Command from './Game/Command'
 import DesktopCalculator from './Game/DesktopCalculator'
 import useTranslation from './locales'
+import LocalesDropdown from './locales/Dropdown'
 import localizedOptions from './lib/localizedOptions'
 
 const DEFAULT_IMAGE_URL = '/cardback.png'
@@ -286,6 +287,11 @@ const Game = ({ gameId }) => {
         value={remoteControl}
         action={<Button onClick={syncDevice} children={t('syncSubmit')} />}
       />
+    </Segment>
+
+    <Segment textAlign='center' color='grey'>
+      <Header textAlign='center'>{t('language')}</Header>
+      <LocalesDropdown selection />
     </Segment>
   </Container>
 }
