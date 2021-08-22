@@ -4,6 +4,11 @@ import { useTranslation, initReactI18next } from 'react-i18next';
 import ptBR from './pt-BR';
 import en from './en';
 
+const resources = {
+  en: en,
+  'pt-BR': ptBR,
+}
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -12,10 +17,10 @@ i18n
       order: ['localStorage', 'navigator'],
       lookupLocalStorage: 'locale'
     },
-    resources: {
-      en: en,
-      'pt-BR': ptBR,
-    }
+    resources
   });
 
+export const languages = Object.entries(resources).map(([language, resource]) => ({
+  key: language, country: resource.metadata.country, name: resource.metadata.name
+}))
 export default useTranslation;
