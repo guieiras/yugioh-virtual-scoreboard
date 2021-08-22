@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router } from '@reach/router';
 import Game from './Game';
-import Home from './Home';
-import Remote from './Remote';
+import Landing from './Landing';
 import Show from './Show';
+import Remote from './Remote';
 import reportWebVitals from './reportWebVitals';
 
 import 'semantic-ui-css/semantic.min.css'
@@ -12,7 +12,7 @@ import './styles/index.css'
 
 ReactDOM.render(
   <Router>
-    <Home path="/" />
+    <Landing path="/" />
     <Show path="/show" />
     <Remote path="/remote" />
     <Game path="game/:gameId" />
