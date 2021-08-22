@@ -28,3 +28,9 @@ html, body, .presentation {
 .presentation.small-screen .player-box {
   background-color: rgba(255, 255, 255, 0.8);
 }
+
+@media only screen and (max-width: 767px) {
+  .menu > .container > .item > span {
+    display: none;
+  }
+}
