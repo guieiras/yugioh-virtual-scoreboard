@@ -1,11 +1,10 @@
 import React from 'react'
-import { Container,Dropdown,Icon, Image, Menu } from 'semantic-ui-react'
-import ReactCountryFlag from 'react-country-flag'
-import useTranslation, { languages } from './locales'
+import { Container, Icon, Image, Menu } from 'semantic-ui-react'
+import useTranslation from './locales'
+import LocalesDropdown from './locales/Dropdown'
 
 const AppMenu = () => {
-  const { i18n, t } = useTranslation('AppMenu')
-  const currentLanguage = languages.filter((l) => i18n.language === l.key)[0]
+  const { t } = useTranslation('AppMenu')
 
   return <Menu fixed='top' inverted>
     <Container>
@@ -14,22 +13,14 @@ const AppMenu = () => {
         {t('title')}
       </Menu.Item>
       <Menu.Item as='a' href='/remote'>
-        <Icon name='linkify' /> {t('remote')}
+        <Icon name='linkify' /> <span>{t('remote')}</span>
       </Menu.Item>
       <Menu.Item as='a' href='/show'>
-        <Icon name='television' /> {t('show')}
+        <Icon name='television' /> <span>{t('show')}</span>
       </Menu.Item>
 
       <Menu.Menu position='right'>
-        <Dropdown item text={currentLanguage.name}>
-          <Dropdown.Menu>
-            { languages.map((language) => (
-              <Dropdown.Item key={language.key} onClick={() => { i18n.changeLanguage(language.key) }}>
-                <ReactCountryFlag countryCode={language.country} /> {currentLanguage.key === language.key ? <b>{language.name}</b> : language.name}
-              </Dropdown.Item>
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>
+        <LocalesDropdown item />
       </Menu.Menu>
     </Container>
   </Menu>
