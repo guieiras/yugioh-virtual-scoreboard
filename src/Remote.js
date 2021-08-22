@@ -5,6 +5,7 @@ import { navigate } from '@reach/router'
 
 import { getChannelByMirror, getChannelByRemote } from './lib/channel'
 import useTranslation from './locales'
+import AppMenu from './AppMenu'
 
 const Remote = () => {
   const { t } = useTranslation('Remote')
@@ -25,18 +26,21 @@ const Remote = () => {
     setRemoteControl(event.target.value.replace(/[^0-9a-zA-Z]/g, '').toUpperCase().substring(0, 6))
   }
 
-  return <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-    <Grid.Column style={{ maxWidth: 450 }}>
-      <Icon name='linkify' size='huge' />
-      <Header as='h1' style={{ marginTop: 10 }} content={t('title')} />
-      <p style={{ marginTop: 10 }}>{t('description')}</p>
-      <Input
-        value={remoteControl}
-        onChange={changeRemoteControl}
-        action={<Button onClick={syncDevice} children={t('sync')} />}
-      />
-    </Grid.Column>
-  </Grid>
+  return <>
+    <AppMenu />
+    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+      <Grid.Column style={{ maxWidth: 450 }}>
+        <Icon name='linkify' size='huge' />
+        <Header as='h1' style={{ marginTop: 10 }} content={t('title')} />
+        <p style={{ marginTop: 10 }}>{t('description')}</p>
+        <Input
+          value={remoteControl}
+          onChange={changeRemoteControl}
+          action={<Button onClick={syncDevice} children={t('sync')} />}
+        />
+      </Grid.Column>
+    </Grid>
+  </>
 }
 
 export default Remote;
