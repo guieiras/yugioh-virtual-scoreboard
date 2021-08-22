@@ -8,14 +8,14 @@ import { getSyncCode } from './lib/syncCode'
 
 const MIRROR_TIMER = 30
 
-const Show = ({ location }) => {
+const Show = () => {
   const [uuid, setUuid] = React.useState('')
   const [mirrorTimer, setMirrorTimer] = React.useState(1)
   const [mirrorCode, setMirrorCode] = React.useState('')
   const [gameState, setGameState] = React.useState({})
 
   React.useEffect(() => {
-    subscribeToUuid((location?.state?.warning ? 'w-' : '') + uuidV1())
+    subscribeToUuid(uuidV1())
     subscribeToMirror()
   }, []) // eslint-disable-line
 
