@@ -1,6 +1,7 @@
 import React from 'react'
 import LandscapeCards from './Presentation/LandscapeCards'
 import ScreenCards from './Presentation/ScreenCards'
+import SmallScreenCards from './Presentation/SmallScreenCards'
 import VerticalCards from './Presentation/VerticalCards'
 import useWindowSize from '../lib/useWindowSize'
 import useTranslation from '../locales'
@@ -9,6 +10,7 @@ const autoLayout = ({ height, width }) => {
   if (typeof height === 'undefined' || typeof width === 'undefined') { return '' }
   if (height > width) { return 'vertical' }
   if (height * 2.5 < width) { return 'landscape' }
+  if (height < 600) { return 'smallScreen' }
   return 'screen'
 }
 
@@ -20,6 +22,7 @@ const Presentation = ({ state: { players, match, timer } }) => {
     case 'landscape': return <LandscapeCards match={match} players={players} timer={timer} />
     case 'screen': return <ScreenCards match={match} players={players} timer={timer} />
     case 'vertical': return <VerticalCards match={match} players={players} timer={timer} />
+    case 'smallScreen': return <SmallScreenCards match={match} players={players} timer={timer} />
     default: return <p>{t('unsupportedLayout')}</p>
   }
 }

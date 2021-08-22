@@ -24,3 +24,7 @@ html, body, .presentation {
   padding: 6px;
   left: 6px;
 }
+
+.presentation.small-screen .player-box {
+  background-color: rgba(255, 255, 255, 0.8);
+}
