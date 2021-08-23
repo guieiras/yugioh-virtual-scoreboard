@@ -109,8 +109,8 @@ const en = {
     unsupportedLayout: 'This layout is not supported'
   },
   Remote: {
-    title: 'Sync remote',
-    description: 'Type pairing code below to control a screen',
+    title: 'Remote control',
+    description: 'Type screen pairing code below to enter control mode',
     sync: 'Sync'
   }
 }

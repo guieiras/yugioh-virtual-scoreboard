@@ -109,8 +109,8 @@ const ptBR = {
     unsupportedLayout: 'Esse Layout não é compatível'
   },
   Remote: {
-    title: 'Sincronizar controle',
-    description: 'Digite o código de pareamento para obter o controle de uma tela',
+    title: 'Controle Remoto',
+    description: 'Digite o código de pareamento da sua tela para obter o controle',
     sync: 'Sincronizar'
   }
 }
