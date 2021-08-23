@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, Container, Header, Input, Table } from 'semantic-ui-react';
 import useTranslation from './locales';
 import AppMenu from './AppMenu';
+import AppFooter from './AppFooter';
 
 const Landing = () => {
   const showLink = `${window.location.origin}/show`
@@ -50,6 +51,7 @@ const Landing = () => {
         </Table.Body>
       </Table>
     </Container>
+    <AppFooter />
   </>
 }
 

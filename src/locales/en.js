@@ -45,6 +45,10 @@ const en = {
     playerReference: 'Use Player {{count}} as reference',
     value: 'Value'
   },
+  Footer: {
+    developedBy: 'Created and developed by <l>{{name}}</l>',
+    link: 'https://me.guieiras.dev/en-us'
+  },
   Game: {
     actionAdd: 'Increase',
     actionClean: 'Reset life points',

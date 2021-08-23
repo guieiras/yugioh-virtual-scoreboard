@@ -45,6 +45,10 @@ const ptBR = {
     playerReference: 'Usa o Jogador {{count}} como referência',
     value: 'Valor'
   },
+  Footer: {
+    developedBy: 'Criado e desenvolvido por <l>{{name}}</l>',
+    link: 'https://me.guieiras.dev'
+  },
   Game: {
     actionAdd: 'Adicionar',
     actionClean: 'Redifinir pontos de vida',
