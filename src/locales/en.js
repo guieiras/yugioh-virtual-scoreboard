@@ -46,7 +46,7 @@ const en = {
     value: 'Value'
   },
   Footer: {
-    developedBy: 'Created and developed by <l>{{name}}</l>',
+    developedBy: 'Created and developed by <lk>{{name}}</lk>',
     link: 'https://me.guieiras.dev/en-us'
   },
   Game: {

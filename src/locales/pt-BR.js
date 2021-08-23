@@ -46,7 +46,7 @@ const ptBR = {
     value: 'Valor'
   },
   Footer: {
-    developedBy: 'Criado e desenvolvido por <l>{{name}}</l>',
+    developedBy: 'Criado e desenvolvido por <lk>{{name}}</lk>',
     link: 'https://me.guieiras.dev'
   },
   Game: {

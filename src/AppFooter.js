@@ -12,7 +12,7 @@ const AppFooter = ({ style }) => {
         t={t}
         i18nKey='developedBy'
         values={{ name: 'Guilherme Alberto Eiras' }}
-        components={{ l: <a href={t('link')} target='_blank' rel='noreferrer'>#</a> }}
+        components={{ lk: <a href={t('link')} target='_blank' rel='noreferrer'>#</a> }}
       />
     </small>
   </Container>
