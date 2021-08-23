@@ -3,10 +3,10 @@ import { Trans } from 'react-i18next'
 import { Container } from 'semantic-ui-react'
 import useTranslation from './locales'
 
-const AppFooter = () => {
+const AppFooter = ({ style }) => {
   const { t } = useTranslation('Footer')
 
-  return <Container style={{ marginTop: 30 }} textAlign='center'>
+  return <Container style={{ marginTop: 30, ...(style || {}) }} textAlign='center'>
     <small>
       <Trans
         t={t}

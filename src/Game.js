@@ -4,6 +4,7 @@ import { Button, Container, Dropdown, Grid, Header, Icon, Input, Label, Radio, S
 import Duelist from './Game/Duelist'
 import Calculator from './Game/Calculator'
 import { getChannelByGame, getChannelByMirror } from './lib/channel'
+import AppFooter from './AppFooter'
 import Command from './Game/Command'
 import DesktopCalculator from './Game/DesktopCalculator'
 import useTranslation from './locales'
@@ -293,6 +294,8 @@ const Game = ({ gameId }) => {
       <Header textAlign='center'>{t('language')}</Header>
       <LocalesDropdown selection />
     </Segment>
+
+    <AppFooter />
   </Container>
 }
 

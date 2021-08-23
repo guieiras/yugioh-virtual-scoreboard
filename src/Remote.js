@@ -6,6 +6,7 @@ import { navigate } from '@reach/router'
 import { getChannelByMirror, getChannelByRemote } from './lib/channel'
 import useTranslation from './locales'
 import AppMenu from './AppMenu'
+import AppFooter from './AppFooter'
 
 const Remote = () => {
   const { t } = useTranslation('Remote')
@@ -40,6 +41,7 @@ const Remote = () => {
         />
       </Grid.Column>
     </Grid>
+    <AppFooter style={{ position: 'absolute', bottom: 0, width: '100%' }}/>
   </>
 }
 
