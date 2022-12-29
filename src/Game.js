@@ -1,6 +1,7 @@
 import React from 'react'
 import { isMobile } from 'react-device-detect'
 import { useParams } from 'react-router-dom'
+import Select from 'react-select'
 import { Button, Container, Grid, Header, Icon, Input, Label, Radio, Segment } from 'semantic-ui-react'
 import Duelist from './Game/Duelist'
 import Calculator from './Game/Calculator'
@@ -25,6 +26,10 @@ const Game = () => {
   const sendData = (overrides = {}) => {
     channel.current && channel.current.publish('update', { players, match, timer, ...overrides })
   }
+
+  const matchOptions = localizedOptions(MATCH_OPTIONS, tMatchOptions)
+  const timeOptions = localizedOptions(MATCH_TIME_OPTIONS, tMatchTimeOptions)
+
 
   const [desktopMode, setDesktopMode] = React.useState(!isMobile)
   const [remoteControl, setRemoteControl] = React.useState('')
@@ -228,10 +233,14 @@ const Game = () => {
           />)
         }
       </div>
-      {/* <Dropdown
-        selection options={localizedOptions(MATCH_OPTIONS, tMatchOptions)}
-        value={match.length}
-        onChange={(_, { value }) => { setMatch(new Array(value).fill(-1)) }} /> */}
+
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <Select
+          onChange={({ value }) => { setMatch(new Array(value).fill(-1)) }}
+          options={matchOptions}
+          value={matchOptions.find(({ value }) => value === match.length)}
+        />
+      </div>
       {
         match.length > 0 && <>
           <Header size="small" textAlign='center'>{t('whoWon')}</Header>
@@ -249,10 +258,13 @@ const Game = () => {
 
     <Segment textAlign='center' color='grey'>
       <Header textAlign='center'>{t('clock')}</Header>
-      {/* {!timer.running && <Dropdown
-        selection options={localizedOptions(MATCH_TIME_OPTIONS, tMatchTimeOptions)}
-        value={timer.option}
-        onChange={(_, { value: option }) => { changeOption(option) }} />} */}
+      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 10 }}>
+        {!timer.running && <Select
+          options={timeOptions}
+          onChange={({ value: option }) => { changeOption(option) }}
+          value={timeOptions.find(({ value }) => value === timer.option)}
+        />}
+      </div>
       {
         Boolean(timer.option) && (timer.running ?
           <Button basic onClick={pauseTimer} color='red'>{t('timerPause')}</Button> :
@@ -279,7 +291,7 @@ const Game = () => {
     <Segment textAlign='center' color='grey'>
       <Header textAlign='center'>{t('desktopMode')}</Header>
       <p>{t('desktopModeDescription')}</p>
-      <Radio toggle checked={desktopMode} onChange={() => setDesktopMode(!desktopMode)} />
+      <Radio toggle checked={desktopMode} style={{ zIndex: 0 }} onChange={() => setDesktopMode(!desktopMode)} />
     </Segment>
 
     <Segment textAlign='center' color='grey'>
@@ -298,17 +310,6 @@ const Game = () => {
         <LocalesDropdown />
       </div>
     </Segment>
-
-    <p>
-      { JSON.stringify({
-        localizedOptions,
-        MATCH_OPTIONS,
-        MATCH_TIME_OPTIONS,
-        tMatchOptions,
-        tMatchTimeOptions,
-        changeOption
-      }) }
-    </p>
 
     <AppFooter />
   </Container>
