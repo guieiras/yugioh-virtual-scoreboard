@@ -40,7 +40,7 @@ This will help you to get a development env running.
 - Install dependencies
 
 ```
-yarn install
+npm install
 ```
 
 - Configure environment variables
@@ -55,7 +55,7 @@ REACT_APP_DECKS_URL='http://your-own-decks-list-api.host/path/to/decks'
 - Start project
 
 ```
-yarn start
+npm start
 ```
 
 ## Deployment
@@ -64,7 +64,7 @@ You can build the app for production using `build` script.
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 ```
-yarn build
+npm build
 ```
 
 This build is minified and filenames include the hashes.
