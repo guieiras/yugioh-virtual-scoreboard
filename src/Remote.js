@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Grid, Header, Icon, Input } from 'semantic-ui-react'
 import { v1 as uuidV1 } from 'uuid'
-import { navigate } from '@reach/router'
+import { useNavigate } from 'react-router-dom'
 
 import { getChannelByMirror, getChannelByRemote } from './lib/channel'
 import useTranslation from './locales'
@@ -12,6 +12,7 @@ const Remote = () => {
   const { t } = useTranslation('Remote')
   const [remoteControlId] = React.useState(uuidV1())
   const [remoteControl, setRemoteControl] = React.useState('')
+  const navigate = useNavigate()
 
   React.useEffect(() => {
     getChannelByRemote(remoteControlId).subscribe(({ data }) => {

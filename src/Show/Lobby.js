@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useLocation } from '@reach/router'
+import { Link } from 'react-router-dom'
 import QRCode from 'qrcode.react'
 import { Header } from 'semantic-ui-react'
 import useWindowSize from '../lib/useWindowSize'

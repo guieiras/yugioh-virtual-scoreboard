@@ -1,6 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Router } from '@reach/router';
+import { createRoot } from 'react-dom/client';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Outlet,
+  RouterProvider,
+  Route
+} from 'react-router-dom';
 import Game from './Game';
 import Landing from './Landing';
 import Show from './Show';
@@ -10,15 +16,19 @@ import reportWebVitals from './reportWebVitals';
 import 'semantic-ui-css/semantic.min.css'
 import './styles/index.css'
 
-ReactDOM.render(
-  <Router>
-    <Landing path="/" />
-    <Show path="/show" />
-    <Remote path="/remote" />
-    <Game path="game/:gameId" />
-  </Router>,
-  document.getElementById('root')
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Outlet />}>
+      <Route element={<Landing />} path="/" />
+      <Route element={<Show />} path="/show" />
+      <Route element={<Remote />} path="/remote" />
+      <Route element={<Game />} path="game/:gameId" />
+    </Route>
+  )
 );
+
+createRoot(document.getElementById('root'))
+  .render(<RouterProvider router={router} />);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

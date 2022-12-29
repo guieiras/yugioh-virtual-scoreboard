@@ -1,5 +1,6 @@
 import React from 'react'
 import { isMobile } from 'react-device-detect'
+import { useParams } from 'react-router-dom'
 import { Button, Container, Dropdown, Grid, Header, Icon, Input, Label, Radio, Segment } from 'semantic-ui-react'
 import Duelist from './Game/Duelist'
 import Calculator from './Game/Calculator'
@@ -15,7 +16,8 @@ const DEFAULT_IMAGE_URL = '/cardback.png'
 const MATCH_OPTIONS = [0, 3, 5]
 const MATCH_TIME_OPTIONS = [0, -1, 30, 40, 50, 60]
 
-const Game = ({ gameId }) => {
+const Game = () => {
+  const { gameId } = useParams()
   const { t: tMatchOptions } = useTranslation('MatchOptions')
   const { t: tMatchTimeOptions } = useTranslation('MatchTimeOptions')
   const { t } = useTranslation('Game')
