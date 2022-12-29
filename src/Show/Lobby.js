@@ -9,8 +9,7 @@ import useTranslation from '../locales'
 const Lobby = ({ mirror, uuid }) => {
   const { t } = useTranslation('Lobby')
   const windowSize = useWindowSize()
-  const location = useLocation()
-  const hostRoute = `${location.origin}/game/${uuid}`
+  const hostRoute = `${window.location.origin}/game/${uuid}`
 
   return windowSize.height >= windowSize.width ? <div className='lobby' style={{ height: '100vh', textAlign: 'center', margin: 0, padding: '20px', overflow: 'hidden' }}>
     <Header as='h3' style={{ marginTop: '10px' }} content={t('header')} />

@@ -21,8 +21,8 @@ const CommandHelp = ({ onOpen, onClose, visible }) => {
             value: t('value')
           }} components={{ b: <b /> }} />
         </p>
-        <p><Trans t={t} i18nKey='description3' components={{ l: <Label size='mini' /> }} /></p>
-        <p><Trans t={t} i18nKey='description4' components={{ kbd: <Label color='black' size='mini' /> }} /></p>
+        <p><Trans t={t} i18nKey='description3' components={{ l: <Label as="span" size='mini' /> }} /></p>
+        <p><Trans t={t} i18nKey='description4' components={{ kbd: <Label as="span" color='black' size='mini' /> }} /></p>
         <Table celled striped>
           <Table.Header>
             <Table.Row>

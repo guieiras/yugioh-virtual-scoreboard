@@ -292,7 +292,7 @@ const Game = ({ gameId }) => {
 
     <Segment textAlign='center' color='grey'>
       <Header textAlign='center'>{t('language')}</Header>
-      <LocalesDropdown selection />
+      <LocalesDropdown />
     </Segment>
 
     <AppFooter />
