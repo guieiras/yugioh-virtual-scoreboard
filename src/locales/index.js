@@ -21,6 +21,6 @@ i18n
   });
 
 export const languages = Object.entries(resources).map(([language, resource]) => ({
-  key: language, country: resource.metadata.country, name: resource.metadata.name
+  value: language, country: resource.metadata.country, label: resource.metadata.name
 }))
 export default useTranslation;
