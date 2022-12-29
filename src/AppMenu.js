@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Icon, Image, Menu } from 'semantic-ui-react'
 import useTranslation from './locales'
-import LocalesDropdown from './locales/Dropdown'
+// import LocalesDropdown from './locales/Dropdown'
 
 const AppMenu = () => {
   const { t } = useTranslation('AppMenu')
@@ -20,7 +20,7 @@ const AppMenu = () => {
       </Menu.Item>
 
       <Menu.Menu position='right'>
-        <LocalesDropdown item />
+        {/* <LocalesDropdown item /> */}
       </Menu.Menu>
     </Container>
   </Menu>

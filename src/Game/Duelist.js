@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Dropdown, Header, Input } from 'semantic-ui-react'
+import { Card, Header, Input } from 'semantic-ui-react'
 import useTranslation from '../locales'
 
 const Duelist = ({ title, lp, decks, deck, onSetDeck, name, onSetName }) => {
@@ -18,7 +18,8 @@ const Duelist = ({ title, lp, decks, deck, onSetDeck, name, onSetName }) => {
         onChange={(e) => onSetName(e.target.value)}
         value={name}
       />
-      <Dropdown
+      <p>{JSON.stringify(options)}</p>
+      {/* <Dropdown
         style={{ marginTop: '10px' }}
         placeholder={t('deck')}
         fluid
@@ -28,7 +29,7 @@ const Duelist = ({ title, lp, decks, deck, onSetDeck, name, onSetName }) => {
         options={options}
         onChange={(_, { value }) => { onSetDeck(value) }}
         value={deck}
-      />
+      /> */}
     </Card.Content>
     <Card.Content extra textAlign="center">
       <Header size="large" as="p">{lp}</Header>
