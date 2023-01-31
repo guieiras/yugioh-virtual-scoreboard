@@ -3,22 +3,22 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "ably": "^1.2.34",
-    "i18next": "^22.4.6",
+    "ably": "^1.2.35",
+    "i18next": "^22.4.9",
     "i18next-browser-languagedetector": "^7.0.1",
     "qrcode.react": "^3.1.0",
     "react": "^18.2.0",
     "react-country-flag": "^3.0.2",
     "react-device-detect": "^2.2.2",
     "react-dom": "^18.2.0",
-    "react-i18next": "^12.1.1",
-    "react-router-dom": "^6.6.1",
+    "react-i18next": "^12.1.4",
+    "react-router-dom": "^6.8.0",
     "react-scripts": "^5.0.1",
     "react-select": "^5.7.0",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.4",
     "uuid": "^9.0.0",
-    "web-vitals": "^3.1.0"
+    "web-vitals": "^3.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
