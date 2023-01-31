@@ -20,6 +20,7 @@ const Duelist = ({ title, lp, decks, deck, onSetDeck, name, onSetName }) => {
         value={name}
       />
       <Select
+        isDisabled={!options.length}
         noOptionsMessage={t('noDeckFound')}
         options={options}
         onChange={({ value }) => onSetDeck(value)}
