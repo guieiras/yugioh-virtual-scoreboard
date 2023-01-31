@@ -1,6 +1,6 @@
 {
-  "name": "remote-duels-show",
-  "version": "1.0.0",
+  "name": "yugioh-virtual-scoreboard",
+  "version": "2.0.0",
   "private": true,
   "dependencies": {
     "ably": "^1.2.35",
