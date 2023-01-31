@@ -6,7 +6,7 @@ const ptBR = {
   AppMenu: {
     remote: 'Controle Remoto',
     show: 'Apresentação',
-    title: 'Remote Duels Show'
+    title: 'Yu-Gi-Oh! Virtual Scoreboard'
   },
   Command: {
     descriptionAdd: 'Jogador {{player}} ganha {{value}} pontos de vida',
@@ -78,7 +78,7 @@ const ptBR = {
     whoWon: 'Quem venceu o game atual?'
   },
   Landing: {
-    description: 'Um widget interativo com informações para o seu duelo remoto de Yu-Gi-Oh! controlável através do computador ou smartphone.',
+    description: 'Um widget interativo com informações para livestreams e duelos remotos de Yu-Gi-Oh! controlável através do computador ou smartphone.',
     configuring: 'Como configurar?',
     configuring1: 'Você pode usar um programa que exiba um navegador ou abrir diretamente o link no seu navegador.',
     configuring2: 'Use um desses tutoriais para iniciar. Configure a fonte usando a seguinte URL:',

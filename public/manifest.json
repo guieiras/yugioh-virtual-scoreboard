@@ -1,6 +1,6 @@
 {
-  "short_name": "Remote Show",
-  "name": "Yu-Gi-Oh! Remote Duels Show",
+  "short_name": "YGO Virtual Scoreboard",
+  "name": "Yu-Gi-Oh! Virtual Scoreboard",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",

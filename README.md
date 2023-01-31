@@ -1,11 +1,10 @@
-# Remote Duels Show
+# Yu-Gi-Oh! Virtual Scoreboard
 
-Remote controllable Life Points calculator to be used as a widget on your Remote Duel video source.
+Remote controllable Life Points calculator to be used as a widget on your Remote Duel video source or real-time score on videos and livestreams.
 
 ![Screen](https://user-images.githubusercontent.com/16104013/117220372-7c511b80-addd-11eb-887c-77de5b4c9396.png)
 
-
-You can use a virtual camera provider like OBS or Streamlabs to build your composition with your webcam and the browser view.
+You can use a software like OBS or Streamlabs to build a composition with your video camera and the web component.
 
 ## Getting Started
 
@@ -28,7 +27,7 @@ And finally, you'll need an API with the following schema:
   {
     "uid": "12345",
     "name": "Deck Name",
-    "imageUrl": "https://link.to/deck-images/deck-image.png"
+    "images": ["https://link.to/deck-images/deck-image.png"]
   },
   ...
 ]

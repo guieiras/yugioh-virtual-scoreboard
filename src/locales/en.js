@@ -6,7 +6,7 @@ const en = {
   AppMenu: {
     remote: 'Remote Control',
     show: 'Presentation',
-    title: 'Remote Duels Show'
+    title: 'Yu-Gi-Oh! Virtual Scoreboard'
   },
   Command: {
     descriptionAdd: 'Increase Player {{player}} life points by {{value}}',
@@ -78,7 +78,7 @@ const en = {
     whoWon: 'Who won current game?'
   },
   Landing: {
-    description: 'Interative widget with info to your Yu-Gi-Oh! Remote Duels. You can control it using your computer or smartphone.',
+    description: 'Interative widget with info to your Yu-Gi-Oh! Remote Duels or Livestreams. You can control it using your computer or smartphone.',
     configuring: 'How to configure?',
     configuring1: 'You can use a browser source on your favorite broadcast software or open link directly on your browser.',
     configuring2: 'The links on table below can help you to setup a browser source on famous broadcast softwares. Use the following URL:',
