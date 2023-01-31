@@ -7,7 +7,7 @@ const ScreenCards = ({ match, players, timer }) => {
   return <Grid stackable style={{ margin: 0, height: '100vh' }} className='presentation screen'>
     <Grid.Column width={7} verticalAlign='middle'>
       <PlayerCard
-        deckUrl={players[0].deckUrl}
+        deckUrl={players[0].deck.images[players[0].deck.imageIndex]}
         name={players[0].name}
         lp={players[0].lp}
         match={match}
@@ -20,7 +20,7 @@ const ScreenCards = ({ match, players, timer }) => {
     </Grid.Column>
     <Grid.Column width={7} verticalAlign='middle'>
       <PlayerCard
-        deckUrl={players[1].deckUrl}
+        deckUrl={players[1].deck.images[players[1].deck.imageIndex]}
         name={players[1].name}
         lp={players[1].lp}
         match={match}

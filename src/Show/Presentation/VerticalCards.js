@@ -7,7 +7,7 @@ const VerticalCards = ({ match, players, timer }) => {
   return <Grid style={{ margin: 0, height: '100vh' }} verticalAlign='middle' columns={1} className='presentation vertical'>
     <Grid.Row verticalAlign='middle' centered>
       <Grid.Column>
-        <Image centered src={players[0].deckUrl} size='small' bordered />
+        <Image centered src={players[0].deck.images[players[0].deck.imageIndex]} size='small' bordered />
         <Segment className='player-box'>
           <Header as='p' size='huge' className='player-name' textAlign='center'>{players[0].name}</Header>
           <Header as='p' size='large' className='player-lp' textAlign='center'>{players[0].lp}</Header>
@@ -21,7 +21,7 @@ const VerticalCards = ({ match, players, timer }) => {
           <Timer total={timer.option} startedAt={timer.startedAt} endsAt={timer.endsAt} running={timer.running} size='massive' /> }
       </Grid.Column>
       <Grid.Column>
-        <Image centered src={players[1].deckUrl} size='small' bordered />
+        <Image centered src={players[1].deck.images[players[1].deck.imageIndex]} size='small' bordered />
         <Segment className='player-box'>
           <Header as='p' size='huge' className='player-name' textAlign='center'>{players[1].name}</Header>
           <Header as='p' size='large' className='player-lp' textAlign='center'>{players[1].lp}</Header>

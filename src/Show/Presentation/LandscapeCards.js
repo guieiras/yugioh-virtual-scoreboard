@@ -27,7 +27,7 @@ const LandscapeCards = ({ match, players, timer }) => {
           </div> : undefined}
         </div>
         <div style={{ marginLeft: 20, height: '100%'}}>
-          <Image src={players[0].deckUrl} style={{ maxHeight: height, width: height }} />
+          <Image src={players[0].deck.images[players[0].deck.imageIndex]} style={{ maxHeight: height, width: height }} />
         </div>
       </Segment>
     </Grid.Column>
@@ -39,7 +39,7 @@ const LandscapeCards = ({ match, players, timer }) => {
     <Grid.Column width={5} style={{ height: '100%' }}>
       <Segment style={{ height: '100%', display: 'flex' }} className='player-box'>
         <div style={{ marginRight: 20, height: '100%'}}>
-          <Image src={players[1].deckUrl} style={{ maxHeight: height, width: height }} />
+          <Image src={players[1].deck.images[players[1].deck.imageIndex]} style={{ maxHeight: height, width: height }} />
         </div>
         <div style={{ width: '100%' }}>
           <Header as='p' size='huge' className='player-lp' style={{ margin: 0 }}>{players[1].lp}</Header>

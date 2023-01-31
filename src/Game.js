@@ -70,7 +70,6 @@ const Game = () => {
     return (deck) => {
       const clone = [...players]
       clone[player].deck = deck
-      clone[player].deckUrl = decks.filter((deckObj) => deckObj.uid === deck)[0].imageUrl
       setPlayers(clone)
     }
   }
@@ -136,8 +135,8 @@ const Game = () => {
   }
 
   const [players, setPlayers] = React.useState([
-    { name: '', deck: '', deckUrl: DEFAULT_IMAGE_URL, lp: 8000 },
-    { name: '', deck: '', deckUrl: DEFAULT_IMAGE_URL, lp: 8000 }
+    { name: '', deck: { name: '', images: [DEFAULT_IMAGE_URL], imageIndex: 0 }, lp: 8000 },
+    { name: '', deck: { name: '', images: [DEFAULT_IMAGE_URL], imageIndex: 0 }, lp: 8000 }
   ])
 
   const [decks, setDecks] = React.useState([])
@@ -149,7 +148,7 @@ const Game = () => {
   React.useEffect(() => {
     fetch(process.env.REACT_APP_DECKS_URL).then((response) => {
       response.json().then((remoteDecks) => {
-        setDecks([{ name: '', uid: '', imageUrl: DEFAULT_IMAGE_URL }, ...remoteDecks])
+        setDecks([{ name: '', uid: '', images: [DEFAULT_IMAGE_URL] }, ...remoteDecks])
       })
     })
     channel.current = getChannelByGame(gameId)
