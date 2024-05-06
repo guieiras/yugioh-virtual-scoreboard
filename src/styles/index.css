@@ -10,6 +10,14 @@ html, body, .presentation {
   background-color: rgba(255, 255, 255, 0.8);
 }
 
+.presentation .player-box .deck-name, .presentation .player-box .player-name, .presentation .player-box .player-lp {
+  margin: 0;
+}
+
+.presentation .matches-count {
+  margin-top: 2px;
+}
+
 .presentation .player-box .player-lp {
   color: rgba(0,0,0,.87);
 }

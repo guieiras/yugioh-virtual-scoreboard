@@ -58,6 +58,7 @@ const ptBR = {
     clock: 'Relógio',
     commandEditor: 'Editor de comando',
     deck: 'Deck',
+    deckName: 'Nome do deck',
     desktopMode: 'Modo Desktop',
     desktopModeDescription: 'O modo desktop é otimizado para ser operado do computador',
     draw: 'Empate',
@@ -102,6 +103,7 @@ const ptBR = {
     '-1': 'Progressivo',
     30: '30 minutos',
     40: '40 minutos',
+    45: '45 minutos',
     50: '50 minutos',
     60: '1 hora'
   },

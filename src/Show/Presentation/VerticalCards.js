@@ -10,6 +10,7 @@ const VerticalCards = ({ match, players, timer }) => {
         <Image centered src={players[0].deck.images[players[0].deck.imageIndex]} size='small' bordered />
         <Segment className='player-box'>
           <Header as='p' size='huge' className='player-name' textAlign='center'>{players[0].name}</Header>
+          <p className='deck-name' style={{textAlign: 'center'}}>{players[0].deck.displayName}</p>
           <Header as='p' size='large' className='player-lp' textAlign='center'>{players[0].lp}</Header>
           { match?.length > 0 ? <Container textAlign='center'>
             { match.map((result, idx) => <MatchIcon key={idx + 1} winWith={0} result={result} />) }
@@ -24,7 +25,8 @@ const VerticalCards = ({ match, players, timer }) => {
         <Image centered src={players[1].deck.images[players[1].deck.imageIndex]} size='small' bordered />
         <Segment className='player-box'>
           <Header as='p' size='huge' className='player-name' textAlign='center'>{players[1].name}</Header>
-          <Header as='p' size='large' className='player-lp' textAlign='center'>{players[1].lp}</Header>
+          <p className='deck-name' style={{textAlign: 'center'}}>{players[1].deck.displayName}</p>
+          <Header as='p' size='large' className='player-lp' textAlign='center' style={{ marginTop: 5 }}>{players[1].lp}</Header>
           {match?.length > 0 ? <Container textAlign='center'>
             {match.map((result, idx) => <MatchIcon key={idx + 1} winWith={1} result={result} />)}
           </Container> : undefined}

@@ -15,7 +15,7 @@ import localizedOptions from './lib/localizedOptions'
 
 const DEFAULT_IMAGE_URL = '/cardback.png'
 const MATCH_OPTIONS = [0, 3, 5]
-const MATCH_TIME_OPTIONS = [0, -1, 30, 40, 50, 60]
+const MATCH_TIME_OPTIONS = [0, -1, 30, 40, 45, 50, 60]
 
 const Game = () => {
   const { gameId } = useParams()
@@ -29,7 +29,6 @@ const Game = () => {
 
   const matchOptions = localizedOptions(MATCH_OPTIONS, tMatchOptions)
   const timeOptions = localizedOptions(MATCH_TIME_OPTIONS, tMatchTimeOptions)
-
 
   const [desktopMode, setDesktopMode] = React.useState(!isMobile)
   const [remoteControl, setRemoteControl] = React.useState('')
@@ -135,8 +134,8 @@ const Game = () => {
   }
 
   const [players, setPlayers] = React.useState([
-    { name: '', deck: { name: '', images: [DEFAULT_IMAGE_URL], imageIndex: 0 }, lp: 8000 },
-    { name: '', deck: { name: '', images: [DEFAULT_IMAGE_URL], imageIndex: 0 }, lp: 8000 }
+    { name: '', deck: { name: '', images: [DEFAULT_IMAGE_URL], imageIndex: 0, displayName: '' }, lp: 8000 },
+    { name: '', deck: { name: '', images: [DEFAULT_IMAGE_URL], imageIndex: 0, displayName: '' }, lp: 8000 }
   ])
 
   const [decks, setDecks] = React.useState([])

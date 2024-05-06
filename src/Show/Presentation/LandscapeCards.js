@@ -22,6 +22,7 @@ const LandscapeCards = ({ match, players, timer }) => {
         <div style={{ width: '100%', textAlign: 'right' }}>
           <Header as='p' size='huge' className='player-lp' style={{ margin: 0 }}>{players[0].lp}</Header>
           <Header as='p' size='medium' className='player-name'>{players[0].name}</Header>
+          <p className='deck-name'>{players[0].deck?.name}</p>
           { match?.length ? <div className='ui center'>
             { match.map((result, idx) => <MatchIcon key={idx + 1} winWith={0} result={result} />) }
           </div> : undefined}
@@ -44,6 +45,7 @@ const LandscapeCards = ({ match, players, timer }) => {
         <div style={{ width: '100%' }}>
           <Header as='p' size='huge' className='player-lp' style={{ margin: 0 }}>{players[1].lp}</Header>
           <Header as='p' size='medium' className='player-name'>{players[1].name}</Header>
+          <p className='deck-name'>{players[0].deck?.name}</p>
           {match?.length ? <div className='ui center'>
             {match.map((result, idx) => <MatchIcon key={idx + 1} winWith={1} result={result} />)}
           </div> : undefined}

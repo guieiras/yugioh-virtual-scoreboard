@@ -58,6 +58,7 @@ const en = {
     clock: 'Clock',
     commandEditor: 'Command mode',
     deck: 'Deck',
+    deckName: 'Deck name',
     desktopMode: 'Desktop mode',
     desktopModeDescription: 'Desktop mode works better using Mouse and Keyboard',
     draw: 'Draw',
@@ -102,6 +103,7 @@ const en = {
     '-1': 'Progressive',
     30: '30 minutes',
     40: '40 minutes',
+    45: '45 minutes',
     50: '50 minutes',
     60: '1 hour'
   },

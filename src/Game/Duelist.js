@@ -10,13 +10,17 @@ const Duelist = ({ title, lp, decks, deck, onSetDeck, name, onSetName }) => {
   ))
 
   function setDeck(newDeck) {
-    onSetDeck({ uid: newDeck.value, name: newDeck.label, images: newDeck.images, imageIndex: 0 })
+    onSetDeck({ uid: newDeck.value, name: newDeck.label, images: newDeck.images, imageIndex: 0, displayName: newDeck.label })
   }
 
   function setImageIndex(by) {
     return () => {
       onSetDeck({ ...deck, imageIndex: deck.imageIndex + by })
     }
+  }
+
+  function setDisplayName(event) {
+    onSetDeck({ ...deck, displayName: event.target.value })
   }
 
   return <Card fluid>
@@ -31,7 +35,7 @@ const Duelist = ({ title, lp, decks, deck, onSetDeck, name, onSetName }) => {
       />
       <Select
         isDisabled={!options.length}
-        noOptionsMessage={t('noDeckFound')}
+        noOptionsMessage={() => t('noDeckFound')}
         options={options}
         onChange={setDeck}
         placeholder={t('deck')}
@@ -43,6 +47,13 @@ const Duelist = ({ title, lp, decks, deck, onSetDeck, name, onSetName }) => {
           singleValue: (_) => ({ ..._, textAlign: 'left' })
         }}
         value={options.find(({ value }) => value && deck === value)}
+      />
+      <Input
+        fluid
+        placeholder={t('deckName')}
+        icon='file alternate outline'
+        onChange={setDisplayName}
+        value={deck.displayName}
       />
     </Card.Content>
     <Card.Content extra textAlign="center">
