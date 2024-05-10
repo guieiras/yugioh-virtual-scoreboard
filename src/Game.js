@@ -5,13 +5,15 @@ import Select from 'react-select'
 import { Button, Container, Grid, Header, Icon, Input, Label, Radio, Segment } from 'semantic-ui-react'
 import Duelist from './Game/Duelist'
 import Calculator from './Game/Calculator'
-import { getChannelByGame, getChannelByMirror } from './lib/channel'
+import { getChannelByGame, getChannelByMirror, getChannelByRemote } from './lib/channel'
 import AppFooter from './AppFooter'
 import Command from './Game/Command'
 import DesktopCalculator from './Game/DesktopCalculator'
 import useTranslation from './locales'
 import LocalesDropdown from './locales/Dropdown'
 import localizedOptions from './lib/localizedOptions'
+import LobbyMirror from './Show/Lobby/Mirror'
+import { getSyncCode } from './lib/syncCode'
 
 const DEFAULT_IMAGE_URL = '/cardback.png'
 const MATCH_OPTIONS = [0, 3, 5]
@@ -24,7 +26,7 @@ const Game = () => {
   const { t } = useTranslation('Game')
   const channel = React.useRef(null)
   const sendData = (overrides = {}) => {
-    channel.current && channel.current.publish('update', { players, match, timer, ...overrides })
+    channel.current && channel.current.publish('update', { players, match, timer, remote: true, ...overrides })
   }
 
   const matchOptions = localizedOptions(MATCH_OPTIONS, tMatchOptions)
@@ -32,44 +34,47 @@ const Game = () => {
 
   const [desktopMode, setDesktopMode] = React.useState(!isMobile)
   const [remoteControl, setRemoteControl] = React.useState('')
+  const [terminalCode, setTerminalCode] = React.useState('')
+  const [terminalTimer, setTerminalTimer] = React.useState(30)
+
   const setMinus = (player, amount) => {
     const clone = [...players]
     clone[player].lp = clone[player].lp - amount
     if (clone[player].lp < 0) { clone[player].lp = 0 }
-    setPlayers(clone)
+    updatePlayers(clone)
   }
   const setPlus = (player, amount) => {
     const clone = [...players]
     clone[player].lp = clone[player].lp + amount
-    setPlayers(clone)
+    updatePlayers(clone)
   }
   const setDivide = (player, amount) => {
     const clone = [...players]
     clone[player].lp = Math.ceil(clone[player].lp / amount)
-    setPlayers(clone)
+    updatePlayers(clone)
   }
   const setLP = (player, newLp) => {
     const clone = [...players]
     clone[player].lp = newLp
-    setPlayers(clone)
+    updatePlayers(clone)
   }
   const resetLP = () => {
     const clone = [...players]
     clone.forEach((player) => { player.lp = 8000 })
-    setPlayers(clone)
+    updatePlayers(clone)
   }
   const setName = (player) => {
     return (name) => {
       const clone = [...players]
       clone[player].name = name
-      setPlayers(clone)
+      updatePlayers(clone)
     }
   }
   const setDeck = (player) => {
     return (deck) => {
       const clone = [...players]
       clone[player].deck = deck
-      setPlayers(clone)
+      updatePlayers(clone)
     }
   }
   const setGameResult = (result) => {
@@ -83,18 +88,19 @@ const Game = () => {
     })
     if (done) {
       resetLP()
-      setMatch(clone)
+      updateMatch(clone)
     }
   }
 
   const resetMatch = () => {
     resetLP()
-    setMatch(new Array(match.length).fill(-1))
+    updateMatch(new Array(match.length).fill(-1))
   }
   const syncDevice = () => {
     setRemoteControl('')
     getChannelByMirror(remoteControl).publish('update', { id: gameId, state: { players, match } })
   }
+
   const stopTimer = () => {
     const newTimer = { option: timer.option, running: false }
 
@@ -133,6 +139,32 @@ const Game = () => {
     sendData({ timer: newTimer })
   }
 
+  const updatePlayers = (newPlayers) => {
+    setPlayers(newPlayers)
+    sendData({ players: newPlayers })
+  }
+
+  const updateMatch = (newMatch) => {
+    setMatch(newMatch)
+    sendData({ match: newMatch })
+  }
+
+  const generateTerminalCode = (type) => {
+    return () => {
+      const newCode = getSyncCode(6)
+      setTerminalCode(newCode)
+      setTerminalTimer(30)
+      getChannelByMirror(newCode).subscribe(({ data: { remoteControlId } }) => {
+        getChannelByRemote(remoteControlId).publish('update', { type, gameId })
+      })
+    }
+  }
+
+  function unsubscribeMirror(id) {
+    getChannelByMirror(id).unsubscribe()
+    getChannelByMirror(id).detach()
+  }
+
   const [players, setPlayers] = React.useState([
     { name: '', deck: { name: '', images: [DEFAULT_IMAGE_URL], imageIndex: 0, displayName: '' }, lp: 8000 },
     { name: '', deck: { name: '', images: [DEFAULT_IMAGE_URL], imageIndex: 0, displayName: '' }, lp: 8000 }
@@ -150,10 +182,16 @@ const Game = () => {
         setDecks([{ name: '', uid: '', images: [DEFAULT_IMAGE_URL] }, ...remoteDecks])
       })
     })
-    channel.current = getChannelByGame(gameId)
+
+    if (gameId) {
+      channel.current = getChannelByGame(gameId)
+      channel.current.subscribe(({ data }) => {
+        setPlayers(data.players)
+        setMatch(data.match)
+      })
+    }
   }, [gameId])
 
-  React.useEffect(sendData, [players, match]) // eslint-disable-line
   React.useEffect(() => {
     if (timeoutRef.current !== null) { clearTimeout(timeoutRef.current) }
 
@@ -166,6 +204,18 @@ const Game = () => {
       else { setClock(0) }
     }, 1000)
   }, [timer, clock])
+
+  React.useEffect(() => {
+    if (!terminalCode) return;
+
+    setTimeout(() => {
+      setTerminalTimer(terminalTimer - 1)
+      if (terminalTimer === 0) {
+        setTerminalCode('')
+        unsubscribeMirror(terminalCode)
+      }
+    }, 1000)
+  })
 
   return <Container style={{ padding: '10px' }}>
     <Grid>
@@ -234,7 +284,7 @@ const Game = () => {
 
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Select
-          onChange={({ value }) => { setMatch(new Array(value).fill(-1)) }}
+          onChange={({ value }) => { updateMatch(new Array(value).fill(-1)) }}
           options={matchOptions}
           value={matchOptions.find(({ value }) => value === match.length)}
         />
@@ -290,6 +340,21 @@ const Game = () => {
       <Header textAlign='center'>{t('desktopMode')}</Header>
       <p>{t('desktopModeDescription')}</p>
       <Radio toggle checked={desktopMode} style={{ zIndex: 0 }} onChange={() => setDesktopMode(!desktopMode)} />
+    </Segment>
+
+    <Segment textAlign='center' color='grey'>
+      <Header textAlign='center'>{t('syncTerminal')}</Header>
+      <p>{t('syncTerminalDescription')}</p>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        {
+          terminalCode ?
+            <LobbyMirror mini code={terminalCode} timer={terminalTimer} /> :
+            <>
+              <Button onClick={generateTerminalCode('game')}>{t('fullControl')}</Button>
+              <Button onClick={generateTerminalCode('terminal')}>{t('lifePoints')}</Button>
+            </>
+        }
+      </div>
     </Segment>
 
     <Segment textAlign='center' color='grey'>
