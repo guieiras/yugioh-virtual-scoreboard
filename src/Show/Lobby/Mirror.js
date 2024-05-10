@@ -10,8 +10,8 @@ function cardColor(timer) {
   else { return 'red' }
 }
 
-const LobbyMirror = ({ code, timer }) => {
-  return <Card fluid color={cardColor(timer)}>
+const LobbyMirror = ({ code, timer, mini }) => {
+  return <Card fluid={!mini} color={cardColor(timer)}>
     <Card.Content>
       <Label style={{ float: 'right', marginRight: 5 }}>
         <Icon loading size="small" name='circle notch' />
