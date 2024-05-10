@@ -11,6 +11,7 @@ import Game from './Game';
 import Landing from './Landing';
 import Show from './Show';
 import Remote from './Remote';
+import Terminal from './Terminal';
 import reportWebVitals from './reportWebVitals';
 
 import 'semantic-ui-css/semantic.min.css'
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
       <Route element={<Show />} path="/show" />
       <Route element={<Remote />} path="/remote" />
       <Route element={<Game />} path="game/:gameId" />
+      <Route element={<Terminal />} path="terminal/:gameId" />
     </Route>
   )
 );
