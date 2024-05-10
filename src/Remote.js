@@ -16,7 +16,7 @@ const Remote = () => {
 
   React.useEffect(() => {
     getChannelByRemote(remoteControlId).subscribe(({ data }) => {
-      navigate(`game/${data.gameId}`)
+      navigate(`/${data.type}/${data.gameId}`)
     })
   }, []) // eslint-disable-line
 

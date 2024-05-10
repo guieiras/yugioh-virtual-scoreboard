@@ -38,7 +38,7 @@ const Show = () => {
   function setMirror({ id, state, remoteControlId }) {
     if (remoteControlId) {
       getChannelByRemote(remoteControlId)
-        .publish('update', { gameId: uuid })
+        .publish('update', { type: 'game', gameId: uuid })
     }
 
     if (id && state) {
@@ -53,7 +53,7 @@ const Show = () => {
 
   function subscribeToUuid(gameId) {
     setUuid(gameId)
-    getChannelByGame(gameId).subscribe(({ data }) => { setGameState(data) })
+    getChannelByGame(gameId).subscribe(({ data }) => { if (data.remote) setGameState(data) })
   }
 
   function unsubscribeClient(channelGetter, id) {
